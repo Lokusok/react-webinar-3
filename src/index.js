@@ -3,8 +3,6 @@ import { createRoot } from 'react-dom/client';
 import App from './app.js';
 import Store from './store.js';
 
-import { idsCreator } from './utils.js';
-
 const list = [
   { code: 1, title: 'Название элемента', selectCount: 0 },
   { code: 2, title: 'Некий объект', selectCount: 0 },
@@ -22,8 +20,6 @@ const list = [
 export const store = new Store({
   list,
 });
-
-idsCreator.alreadyExistIds = list.map((item) => item.code);
 
 const root = createRoot(document.getElementById('root'));
 

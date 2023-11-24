@@ -1,5 +1,3 @@
-import { idsCreator } from './utils';
-
 /**
  * Хранилище состояния приложения
  */
@@ -7,6 +5,7 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.serialId = this.state.list ? this.state.list.length : 1;
   }
 
   /**
@@ -49,7 +48,7 @@ class Store {
       list: [
         ...this.state.list,
         {
-          code: idsCreator.getUniqueSerial(),
+          code: ++this.serialId,
           title: 'Новая запись',
           selectCount: 0,
         },

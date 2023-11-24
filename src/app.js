@@ -1,6 +1,8 @@
 import React from 'react';
 import './styles.css';
 
+import plural from 'plural-ru';
+
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -26,12 +28,18 @@ function App({ store }) {
                 onClick={() => store.selectItem(item.code)}
               >
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">
-                  {item.title}{' '}
-                  {item.selectCount > 0
-                    ? `| Выделяли ${item.selectCount} раз(-а)`
-                    : ''}
-                </div>
+                {item.selectCount === 0 ? (
+                  <div className="Item-title">{item.title}</div>
+                ) : (
+                  <div className="Item-title">
+                    {`${item.title} | Выделяли ${plural(
+                      item.selectCount,
+                      '%d раз',
+                      '%d раза',
+                      '%d раз'
+                    )}`}
+                  </div>
+                )}
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить

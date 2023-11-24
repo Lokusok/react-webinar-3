@@ -26,15 +26,3 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
-
-export const idsCreator = {
-  alreadyExistIds: [],
-
-  getUniqueSerial() {
-    const prevValue = this.alreadyExistIds.at(-1);
-    const id = prevValue ? prevValue + 1 : 1;
-    this.alreadyExistIds.push(id);
-
-    return id;
-  },
-};
