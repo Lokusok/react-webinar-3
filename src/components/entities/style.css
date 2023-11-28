@@ -1,0 +1,6 @@
+.Entities {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+  column-gap: 20px;
+}

@@ -1,21 +1,33 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import PropTypes from "prop-types";
 
-function Controls({onAdd}) {
+import { cn as bem } from "@bem-react/classname";
+
+import "./style.css";
+
+function Controls(props) {
+  const cn = bem("Controls");
+
   return (
-    <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={cn()}>
+      <button
+        className={cn("action")}
+        onClick={props.onShow}
+        disabled={props.isShowDisabled}
+      >
+        Перейти
+      </button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onShow: PropTypes.func,
+  isShowDisabled: PropTypes.bool,
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
-}
+  onAdd: () => {},
+};
 
 export default React.memo(Controls);

@@ -50,3 +50,38 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
 }
+
+/**
+ * Форматирование переданного числа в формат валюты
+ * @param num {Number} число для последующего форматирования 
+ * @param currency {String} строка для форматирования под указанную валюту (например: RUB, EUR)
+ * @returns {Number}
+ */
+
+export function formatCurrency(num, currency = 'RUB') {
+  const formatter = new Intl.NumberFormat("ru", { style: "currency", currency, maximumFractionDigits: 0 });
+  return formatter.format(num);
+}
+
+export function reduceCountOfItems(items) {
+  const res = Object.values(items)
+                      .map(Number)
+                      .reduce((acc, num) => acc + num, 0);
+
+  return res;
+}
+
+export function createListWithCountsOfPerItemAndType(originList, items, advType) {
+  const res = Object.entries(items)
+  .map(([code, count]) => {
+    const originItem = originList.find((item) => item.code === Number(code));
+
+    return {
+      ...originItem,
+      count,
+      type: advType,
+    };
+  });
+
+  return res;
+}

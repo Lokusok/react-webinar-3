@@ -1,0 +1,6 @@
+.Basket-total {
+  padding-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 120px;
+}
