@@ -7,13 +7,13 @@
  * @param [locale] {String} Локаль (код языка)
  * @returns {*|string}
  */
-export function plural(value, variants = {}, locale = 'ru-RU') {
+export function plural(value, variants = {}, locale = "ru-RU") {
   // Получаем фурму кодовой строкой: 'zero', 'one', 'two', 'few', 'many', 'other'
   // В русском языке 3 формы: 'one', 'few', 'many', и 'other' для дробных
   // В английском 2 формы: 'one', 'other'
   const key = new Intl.PluralRules(locale).select(value);
   // Возвращаем вариант по ключу, если он есть
-  return variants[key] || '';
+  return variants[key] || "";
 }
 
 /**
@@ -23,7 +23,7 @@ export function plural(value, variants = {}, locale = 'ru-RU') {
  */
 export const generateCode = (function (start = 0) {
   return () => ++start;
-}());
+})();
 
 /**
  * Генератор чисел с шагом 1
@@ -40,7 +40,7 @@ export const generateCode1 = (function (start = 0) {
 
   const gen = realGenerator(start);
   return () => gen.next().value;
-}());
+})();
 
 /**
  * Генератор чисел с шагом 1
@@ -48,40 +48,23 @@ export const generateCode1 = (function (start = 0) {
  * @returns {Number}
  */
 export function generateCode2() {
-  return generateCode2.value ? ++generateCode2.value : generateCode2.value = 1;
+  return generateCode2.value
+    ? ++generateCode2.value
+    : (generateCode2.value = 1);
 }
 
 /**
  * Форматирование переданного числа в формат валюты
- * @param num {Number} число для последующего форматирования 
+ * @param num {Number} число для последующего форматирования
  * @param currency {String} строка для форматирования под указанную валюту (например: RUB, EUR)
  * @returns {Number}
  */
 
-export function formatCurrency(num, currency = 'RUB') {
-  const formatter = new Intl.NumberFormat("ru", { style: "currency", currency, maximumFractionDigits: 0 });
-  return formatter.format(num);
-}
-
-export function reduceCountOfItems(items) {
-  const res = Object.values(items)
-                      .map(Number)
-                      .reduce((acc, num) => acc + num, 0);
-
-  return res;
-}
-
-export function createListWithCountsOfPerItemAndType(originList, items, advType) {
-  const res = Object.entries(items)
-  .map(([code, count]) => {
-    const originItem = originList.find((item) => item.code === Number(code));
-
-    return {
-      ...originItem,
-      count,
-      type: advType,
-    };
+export function formatCurrency(num, currency = "RUB") {
+  const formatter = new Intl.NumberFormat("ru", {
+    style: "currency",
+    currency,
+    maximumFractionDigits: 0,
   });
-
-  return res;
+  return formatter.format(num);
 }

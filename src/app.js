@@ -9,11 +9,6 @@ import Entities from "./components/entities";
 
 import { useModal } from "./hooks/useModal";
 
-import {
-  reduceCountOfItems,
-  createListWithCountsOfPerItemAndType,
-} from "./utils";
-
 /**
  * Приложение
  * @param store {Store} Хранилище состояния приложения
@@ -22,11 +17,15 @@ import {
 function App({ store }) {
   const list = store.getState().list;
   const basket = store.getState().basket;
-  const totalPrice = basket.total;
-  const totalCount = useMemo(() => reduceCountOfItems(basket.items), [basket]);
+  const totalPrice = basket.total.price;
+  const totalCount = basket.total.count;
+
   const basketList = useMemo(
-    () => createListWithCountsOfPerItemAndType(list, basket.items, "basket"),
-    [list, basket]
+    () =>
+      Object.entries(basket.items).map(([_, item]) => {
+        return item;
+      }),
+    [basket]
   );
 
   const [isModalOpen, setIsModalOpen, modalWrapperRef, forDisableFocusRef] =
@@ -40,15 +39,15 @@ function App({ store }) {
 
   const callbacks = {
     onDeleteFromBasketItem: useCallback(
-      (code) => {
-        store.deleteFromBasket(code);
+      (item) => {
+        store.deleteFromBasket(item);
       },
       [store]
     ),
 
     onAddToBasketItem: useCallback(
-      (code) => {
-        store.addToBasket(code);
+      (item) => {
+        store.addToBasket(item);
       },
       [store]
     ),

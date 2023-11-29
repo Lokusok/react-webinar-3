@@ -35,8 +35,8 @@ List.propTypes = {
 };
 
 List.defaultProps = {
-  onDeleteItem: () => {},
-  onSelectItem: () => {},
+  onDeleteFromBasketItem: () => {},
+  onAddToBasketItem: () => {},
 };
 
 export default React.memo(List);

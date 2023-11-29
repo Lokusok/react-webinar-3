@@ -5,7 +5,10 @@ class Store {
   constructor(initState = {}) {
     this.state = {
       basket: {
-        total: 0,
+        total: {
+          price: 0,
+          count: 0,
+        },
         items: {},
       },
       list: [],
@@ -61,8 +64,18 @@ class Store {
    * Добавление записи в корзину по коду
    * @param code
    */
-  addToBasket(code) {
-    const addedItem = this.state.list.find((item) => item.code === code);
+  addToBasket(item) {
+    let addedItem = this.state.basket.items[item.code];
+
+    if (!addedItem) {
+      addedItem = {
+        ...item,
+        count: 1,
+        type: "basket",
+      };
+    } else {
+      addedItem.count++;
+    }
 
     this.setState({
       ...this.state,
@@ -70,11 +83,13 @@ class Store {
         ...this.state.basket,
         items: {
           ...this.state.basket.items,
-          [code]: Number.isFinite(this.state.basket.items[code])
-            ? this.state.basket.items[code] + 1
-            : 1,
+          [item.code]: addedItem,
         },
-        total: this.state.basket.total + addedItem.price,
+        total: {
+          ...this.state.basket.total,
+          price: this.state.basket.total.price + addedItem.price,
+          count: this.state.basket.total.count + 1,
+        },
       },
     });
   }
@@ -83,20 +98,21 @@ class Store {
    * Удаление записи из корзины по коду
    * @param code
    */
-  deleteFromBasket(code) {
-    const deletingItem = this.state.list.find((item) => item.code === code);
-    const basketDeletingItemCount = this.state.basket.items[deletingItem.code];
-
+  deleteFromBasket(item) {
+    const needDeleteThisItem = this.state.basket.items[item.code];
     const newState = {
       ...this.state,
       basket: {
         ...this.state.basket,
-        total:
-          this.state.basket.total -
-          deletingItem.price * basketDeletingItemCount,
+        total: {
+          ...this.state.basket.total,
+          price: this.state.basket.total.price - item.price * item.count,
+          count: this.state.basket.total.count - item.count,
+        },
       },
     };
-    delete newState.basket.items[deletingItem.code];
+
+    delete newState.basket.items[needDeleteThisItem.code];
 
     this.setState(newState);
   }

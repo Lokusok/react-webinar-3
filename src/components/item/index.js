@@ -39,13 +39,11 @@ function Item(props) {
         </div>
 
         {props.item.type === "basket" ? (
-          <button onClick={() => callbacks.onDelete(props.item.code)}>
+          <button onClick={() => callbacks.onDelete(props.item)}>
             Удалить
           </button>
         ) : (
-          <button onClick={() => callbacks.onAdd(props.item.code)}>
-            Добавить
-          </button>
+          <button onClick={() => callbacks.onAdd(props.item)}>Добавить</button>
         )}
       </div>
     </div>
@@ -64,7 +62,7 @@ Item.propTypes = {
 
 Item.defaultProps = {
   onDelete: () => {},
-  onSelect: () => {},
+  onAdd: () => {},
 };
 
 export default React.memo(Item);
