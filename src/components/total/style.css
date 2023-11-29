@@ -1,3 +1,7 @@
+.Total {
+  font-size: 18px;
+}
+
 .Total-bold {
   font-weight: 700;
 }
@@ -5,4 +9,9 @@
 .Total-bold_gap_long {
   display: flex;
   column-gap: 53px;
+}
+
+.Total-row {
+  display: flex;
+  column-gap: 12px;
 }

@@ -19,7 +19,7 @@ function Total(props) {
   };
 
   return (
-    <div className={cn("Total")}>
+    <div className={cn()}>
       {props.variant === "short" && (
         <>
           <div className={cn("bold", { gap: "long" })}>
@@ -33,18 +33,22 @@ function Total(props) {
 
       {props.variant === "long" && (
         <>
-          <span className={cn("prefix")}>В корзине: </span>
-          {formattedVals ? (
-            <>
-              <b>
-                {props.totalCount} {formattedVals.pluralCount}
-              </b>
-              <span className={cn("bold")}> / </span>
-              <b>{formattedVals.formattedCurrency}</b>
-            </>
-          ) : (
-            <b>пусто</b>
-          )}
+          <div className={cn("row")}>
+            <span className={cn("prefix")}>В корзине: </span>
+            {formattedVals ? (
+              <>
+                <div className={cn("price-from-max")}>
+                  <b>
+                    {props.totalCount} {formattedVals.pluralCount}
+                  </b>
+                  <span className={cn("bold")}> / </span>
+                  <b>{formattedVals.formattedCurrency}</b>
+                </div>
+              </>
+            ) : (
+              <b>пусто</b>
+            )}
+          </div>
         </>
       )}
     </div>
