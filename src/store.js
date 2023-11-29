@@ -49,20 +49,8 @@ class Store {
   }
 
   /**
-   * Удаление записи по коду
-   * @param code
-   */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter((item) => item.code !== code),
-    });
-  }
-
-  /**
-   * Добавление записи в корзину по коду
-   * @param code
+   * Добавление записи в корзину
+   * @param item
    */
   addToBasket(item) {
     let addedItem = this.state.basket.items[item.code];
@@ -95,8 +83,8 @@ class Store {
   }
 
   /**
-   * Удаление записи из корзины по коду
-   * @param code
+   * Удаление товара из корзины
+   * @param item
    */
   deleteFromBasket(item) {
     const needDeleteThisItem = this.state.basket.items[item.code];
