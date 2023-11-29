@@ -1,5 +1,3 @@
-import { generateCode } from "./utils";
-
 /**
  * Хранилище состояния приложения
  */

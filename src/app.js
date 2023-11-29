@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 import List from "./components/list";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
@@ -23,11 +23,10 @@ function App({ store }) {
   const list = store.getState().list;
   const basket = store.getState().basket;
   const totalPrice = basket.total;
-  const totalCount = reduceCountOfItems(basket.items);
-  const basketList = createListWithCountsOfPerItemAndType(
-    list,
-    basket.items,
-    "basket"
+  const totalCount = useMemo(() => reduceCountOfItems(basket.items), [basket]);
+  const basketList = useMemo(
+    () => createListWithCountsOfPerItemAndType(list, basket.items, "basket"),
+    [list, basket]
   );
 
   const [isModalOpen, setIsModalOpen, modalWrapperRef, forDisableFocusRef] =
