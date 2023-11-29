@@ -8,7 +8,7 @@ class Store {
     this.state = {
       basket: {
         total: 0,
-        items: [],
+        items: {},
       },
       list: [],
       ...initState,
