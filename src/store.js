@@ -49,7 +49,7 @@ class Store {
   }
 
   /**
-   * Добавление записи в корзину
+   * Добавление товара в корзину
    * @param item
    */
   addToBasket(item) {
@@ -62,7 +62,7 @@ class Store {
         type: "basket",
       };
     } else {
-      addedItem.count++;
+      addedItem = { ...addedItem, count: addedItem.count + 1 };
     }
 
     this.setState({

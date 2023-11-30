@@ -18,7 +18,7 @@ function App({ store }) {
   const list = store.getState().list;
   const basket = store.getState().basket;
   const totalPrice = basket.total.price;
-  const totalCount = basket.total.count;
+  const totalUniqueCount = Object.keys(basket.items).length;
 
   const basketList = useMemo(
     () =>
@@ -32,10 +32,10 @@ function App({ store }) {
     useModal();
 
   useEffect(() => {
-    if (totalCount === 0) {
+    if (totalUniqueCount === 0) {
       setIsModalOpen(false);
     }
-  }, [totalCount]);
+  }, [totalUniqueCount]);
 
   const callbacks = {
     onDeleteFromBasketItem: useCallback(
@@ -67,7 +67,7 @@ function App({ store }) {
         <Head title="Магазин" />
         <Entities
           totalPrice={totalPrice}
-          totalCount={totalCount}
+          totalCount={totalUniqueCount}
           onShow={callbacks.showModal}
         />
         <List
@@ -82,7 +82,7 @@ function App({ store }) {
           <Basket
             onDeleteFromBasketItem={callbacks.onDeleteFromBasketItem}
             list={basketList}
-            totalCount={totalCount}
+            totalCount={totalUniqueCount}
             totalPrice={totalPrice}
           />
         </Modal>

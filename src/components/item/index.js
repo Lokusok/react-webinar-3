@@ -24,27 +24,32 @@ function Item(props) {
     formattedCurrency: formatCurrency(props.item.price, "RUB"),
   };
 
+  const renderElems = {
+    button: {
+      basket: (
+        <button onClick={() => callbacks.onDelete(props.item)}>Удалить</button>
+      ),
+      default: (
+        <button onClick={() => callbacks.onAdd(props.item)}>Добавить</button>
+      ),
+    },
+
+    appendedStats: {
+      basket: <span className={cn("stat")}>{props.item.count} шт</span>,
+    },
+  };
+
   return (
     <div className={cn()}>
       <div className={cn("code")}>{props.item.code}</div>
       <div className={cn("title")}>{props.item.title}</div>
       <div className={cn("actions")}>
         <div className={cn("stats")}>
-          <span className={cn("stat", "price")}>
-            {formattedVals.formattedCurrency}
-          </span>
-          {props.item.type === "basket" && (
-            <span className={cn("stat", "count")}>{props.item.count} шт</span>
-          )}
+          <span className={cn("stat")}>{formattedVals.formattedCurrency}</span>
+          {renderElems.appendedStats[props.item.type]}
         </div>
 
-        {props.item.type === "basket" ? (
-          <button onClick={() => callbacks.onDelete(props.item)}>
-            Удалить
-          </button>
-        ) : (
-          <button onClick={() => callbacks.onAdd(props.item)}>Добавить</button>
-        )}
+        {renderElems.button[props.item.type]}
       </div>
     </div>
   );
@@ -54,7 +59,7 @@ Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
-    type: PropTypes.oneOf([undefined, "basket"]),
+    type: PropTypes.oneOf(["default", "basket"]),
   }).isRequired,
   onDelete: PropTypes.func,
   onAdd: PropTypes.func,
