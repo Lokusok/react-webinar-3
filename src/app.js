@@ -8,6 +8,7 @@ import Basket from "./components/basket";
 import Entities from "./components/entities";
 
 import { useModal } from "./hooks/useModal";
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -72,8 +73,9 @@ function App({ store }) {
         />
         <List
           list={list}
-          onDeleteFromBasketItem={callbacks.onDeleteFromBasketItem}
-          onAddToBasketItem={callbacks.onAddToBasketItem}
+          elemForRender={(itemData) => (
+            <Item item={itemData} onAdd={callbacks.onAddToBasketItem} />
+          )}
         />
       </PageLayout>
 

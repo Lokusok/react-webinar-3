@@ -7,6 +7,7 @@ import { cn as bem } from "@bem-react/classname";
 
 import List from "../list";
 import Total from "../total";
+import BasketItem from "../basket-item";
 
 function Basket(props) {
   const cn = bem("Basket");
@@ -14,8 +15,10 @@ function Basket(props) {
   return (
     <div className={cn()}>
       <List
-        onDeleteFromBasketItem={props.onDeleteFromBasketItem}
         list={props.list}
+        elemForRender={(itemData) => (
+          <BasketItem item={itemData} onDelete={props.onDeleteFromBasketItem} />
+        )}
       />
 
       <div className={cn("total")}>
