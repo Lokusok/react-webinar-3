@@ -11,12 +11,12 @@ function Item(props) {
   const cn = bem("Item");
 
   const callbacks = {
-    onAdd: (code) => {
-      props.onAdd(code);
+    onAdd: () => {
+      props.onAdd(props.item);
     },
 
-    onDelete: (code) => {
-      props.onDelete(code);
+    onDelete: () => {
+      props.onDelete(props.item);
     },
   };
 
@@ -26,12 +26,8 @@ function Item(props) {
 
   const renderElems = {
     button: {
-      basket: (
-        <button onClick={() => callbacks.onDelete(props.item)}>Удалить</button>
-      ),
-      default: (
-        <button onClick={() => callbacks.onAdd(props.item)}>Добавить</button>
-      ),
+      basket: <button onClick={callbacks.onDelete}>Удалить</button>,
+      default: <button onClick={callbacks.onAdd}>Добавить</button>,
     },
 
     appendedStats: {
