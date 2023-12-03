@@ -25,7 +25,7 @@ List.propTypes = {
       code: PropTypes.number,
     })
   ).isRequired,
-  elemForRender: () => PropTypes.node,
+  elemForRender: () => {},
 };
 
 export default React.memo(List);
