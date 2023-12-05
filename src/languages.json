@@ -1,0 +1,46 @@
+{
+  "title": {
+    "ru": "Магазин",
+    "en": "Shop"
+  },
+  "home": {
+    "ru": "Главная",
+    "en": "Home"
+  },
+  "basketLabel": {
+    "ru": "В корзине:",
+    "en": "In the basket:"
+  },
+  "basketEmpty": {
+    "ru": "пусто",
+    "en": "empty"
+  },
+  "basketPopupBtn": {
+    "ru": "Перейти",
+    "en": "To basket"
+  },
+  "pluralProducts": {
+    "ru": { "one": "товар", "few": "товара", "many": "товаров" },
+    "en": { "one": "product", "few": "products", "many": "products" }
+  },
+  "basketTitle": {
+    "ru": "Корзина",
+    "en": "Basket"
+  },
+  "closeModalBtn": {
+    "ru": "Закрыть",
+    "en": "Close"
+  },
+  "resultPriceLabel": {
+    "ru": "Итого",
+    "en": "Result"
+  },
+  "addToBasketBtn": {
+    "ru": "Добавить",
+    "en": "Append"
+  },
+  "removeFromBasketBtn": {
+    "ru": "Удалить",
+    "en": "Remove"
+  }
+}

@@ -1,0 +1,39 @@
+.Pagination-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 22px;
+}
+
+.Pagination-list {
+  display: flex;
+}
+
+.Pagination-main-list {
+  display: flex;
+}
+
+.Pagination-main-list_separatedLeft::before {
+  content: "...";
+  color: #ccc;
+}
+
+.Pagination-main-list_separatedRight::after {
+  content: "...";
+  color: #ccc;
+}
+
+.Pagination-link {
+  text-decoration: none;
+  font-size: 16px;
+  padding: 4px 6px;
+  color: #000;
+}
+
+.Pagination-link:not([class*="active"]):hover {
+  background-color: #e1e1e1;
+}
+
+.Pagination-link_active {
+  background-color: #0087e9;
+  color: #fff;
+}

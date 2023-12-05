@@ -1,13 +1,17 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
-import './style.css';
+import "./style.css";
 
-function Head({title}) {
+import LanguageSwitcher from "../language-switcher";
+
+function Head({ title }) {
   return (
-    <div className='Head'>
+    <div className="Head">
       <h1>{title}</h1>
+
+      <LanguageSwitcher />
     </div>
-  )
+  );
 }
 
 Head.propTypes = {

@@ -1,0 +1,34 @@
+.ProductDescription {
+  padding: 0 40px;
+  font-size: 18px;
+}
+
+.ProductDescription-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.ProductDescription-about {
+  margin: 0;
+  margin: 20px 0;
+}
+
+.ProductDescription-descrValue {
+  font-weight: 700;
+}
+
+.ProductDescription-result {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  margin-top: 20px;
+}
+
+.ProductDescription-price {
+  font-size: 24px;
+  font-weight: 700;
+}
