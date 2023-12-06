@@ -1,12 +1,15 @@
 import { memo, useCallback } from "react";
+
 import ItemBasket from "../../components/item-basket";
 import List from "../../components/list";
-import ModalLayout from "../../components/modal-layout";
 import BasketTotal from "../../components/basket-total";
+
+import ModalLayout from "../../layouts/modal-layout";
+
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-import languages from "../../languages.json";
+import { getTranslation } from "../../utils";
 
 function Basket() {
   const store = useStore();
@@ -44,10 +47,7 @@ function Basket() {
   };
 
   const translate = {
-    basketTitle:
-      select.activeLang && languages?.basketTitle
-        ? languages.basketTitle[select.activeLang]
-        : "Корзина",
+    basketTitle: getTranslation("basketTitle", select.activeLang, "Корзина"),
   };
 
   return (

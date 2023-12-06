@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import "./style.css";
 
-import languages from "../../languages.json";
+import { getTranslation } from "../../utils";
 
 function ModalLayout(props) {
   const cn = bem("ModalLayout");
@@ -32,10 +32,7 @@ function ModalLayout(props) {
   }, []);
 
   const translate = {
-    closeModalBtn:
-      props.lang && languages?.closeModalBtn
-        ? languages.closeModalBtn[props.lang]
-        : "Закрыть",
+    closeModalBtn: getTranslation("closeModalBtn", props.lang, "Закрыть"),
   };
 
   return (

@@ -1,17 +1,15 @@
 import { memo, useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
+import DefaultLayout from "../../layouts/default-layout";
 import Item from "../../components/item";
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
-import Entities from "../../components/entities";
 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-import languages from "../../languages.json";
+import { getTranslation } from "../../utils";
 
 function Main() {
   const store = useStore();
@@ -19,8 +17,6 @@ function Main() {
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
     maxPage: state.catalog.maxPage,
     activeLang: state.languages.active,
   }));
@@ -29,11 +25,6 @@ function Main() {
     // Добавление в корзину
     addToBasket: useCallback(
       (_id) => store.actions.basket.addToBasket(_id),
-      [store]
-    ),
-    // Открытие модалки корзины
-    openModalBasket: useCallback(
-      () => store.actions.modals.open("basket"),
       [store]
     ),
     // Обновление активной страницы
@@ -63,10 +54,7 @@ function Main() {
   };
 
   const translate = {
-    title:
-      select.activeLang && languages?.title
-        ? languages.title[select.activeLang]
-        : "Магазин",
+    title: getTranslation("title", select.activeLang, "Магазин"),
   };
 
   useEffect(() => {
@@ -74,23 +62,14 @@ function Main() {
   }, [page]);
 
   return (
-    <PageLayout>
-      <Head title={translate.title} />
-
-      <Entities
-        lang={select.activeLang}
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+    <DefaultLayout title={translate.title}>
       <List list={select.list} renderItem={renders.item} />
-
       <Pagination
         minPage={1}
         activePage={Number(page)}
         maxPage={select.maxPage}
       />
-    </PageLayout>
+    </DefaultLayout>
   );
 }
 

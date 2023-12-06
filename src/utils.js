@@ -1,3 +1,5 @@
+import languages from "./languages.json";
+
 /**
  * Плюрализация
  * Возвращает вариант с учётом правил множественного числа под указанную локаль
@@ -32,4 +34,20 @@ export function codeGenerator(start = 0) {
  */
 export function numberFormat(value, locale = "ru-RU", options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
+}
+
+/**
+ * Получение перевода
+ * @param value {String}
+ * @param lang {String}
+ * @param fallback {String}
+ * @returns {String}
+ */
+
+export function getTranslation(value, lang, fallback) {
+  if (languages[value] && languages[value][lang]) {
+    return languages[value][lang];
+  }
+
+  return fallback;
 }

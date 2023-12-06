@@ -1,26 +1,29 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 
 import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import { numberFormat } from "../../utils";
 import "./style.css";
 
-import languages from "../../languages.json";
+import { getTranslation, numberFormat } from "../../utils";
 
 function Item(props) {
   const cn = bem("Item");
 
   const callbacks = {
-    onAdd: (e) => props.onAdd(props.item._id),
+    onAdd: () => props.onAdd(props.item._id),
   };
 
   const translate = {
-    addToBasketBtn:
-      props.lang && languages?.addToBasketBtn
-        ? languages.addToBasketBtn[props.lang]
-        : "Добавить",
+    addToBasketBtn: getTranslation("addToBasketBtn", props.lang, "Добавить"),
+  };
+
+  const formattedVals = {
+    price: numberFormat(props.item.price, props.lang, {
+      style: "currency",
+      currency: "RUB",
+    }),
   };
 
   return (
@@ -31,7 +34,7 @@ function Item(props) {
         </Link>
       </div>
       <div className={cn("actions")}>
-        <div className={cn("price")}>{numberFormat(props.item.price)} ₽</div>
+        <div className={cn("price")}>{formattedVals.price}</div>
         <button onClick={callbacks.onAdd}>{translate.addToBasketBtn}</button>
       </div>
     </div>

@@ -6,16 +6,27 @@ import "./style.css";
 
 import { cn as bem } from "@bem-react/classname";
 
-import { numberFormat } from "../../utils";
+import { getTranslation, numberFormat } from "../../utils";
 
 function ProductDescription(props) {
   const cn = bem("ProductDescription");
 
   const formattedVals = {
-    price: numberFormat(props.price, "RU", {
+    price: numberFormat(props.price, props.lang, {
       style: "currency",
       currency: "RUB",
     }),
+  };
+
+  const translate = {
+    countryMade: getTranslation(
+      "countryMade",
+      props.lang,
+      "Страна производитель"
+    ),
+    categoryProd: getTranslation("categoryProd", props.lang, "Категория"),
+    yearRelease: getTranslation("yearRelease", props.lang, "Год выпуска"),
+    priceLabel: getTranslation("priceLabel", props.lang, "Цена"),
   };
 
   return (
@@ -24,21 +35,23 @@ function ProductDescription(props) {
         <p className={cn("about")}>{props.about}</p>
         <ul className={cn("list")}>
           <li className={cn("descrItem")}>
-            Страна производитель:{" "}
+            {translate.countryMade}:{" "}
             <span className={cn("descrValue")}>{props.madeIn}</span>
           </li>
           <li className={cn("descrItem")}>
-            Категория:{" "}
+            {translate.categoryProd}:{" "}
             <span className={cn("descrValue")}>{props.category}</span>
           </li>
           <li className={cn("descrItem")}>
-            Год выпуска:{" "}
+            {translate.yearRelease}:{" "}
             <span className={cn("descrValue")}>{props.edition}</span>
           </li>
         </ul>
 
         <div className={cn("result")}>
-          <span className={cn("price")}>Цена: {formattedVals.price}</span>
+          <span className={cn("price")}>
+            {translate.priceLabel}: {formattedVals.price}
+          </span>
           <div>{props.addButton}</div>
         </div>
       </div>
@@ -52,6 +65,11 @@ ProductDescription.propTypes = {
   edition: PropTypes.number,
   madeIn: PropTypes.string,
   category: PropTypes.string,
+  lang: PropTypes.oneOf(["ru", "en"]),
+};
+
+ProductDescription.defaultProps = {
+  lang: "ru",
 };
 
 export default ProductDescription;

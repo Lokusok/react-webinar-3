@@ -1,41 +1,46 @@
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 
-import { numberFormat } from "../../utils";
 import { cn as bem } from "@bem-react/classname";
 
 import PropTypes from "prop-types";
-import "./style.css";
 
-import languages from "../../languages.json";
+import "./style.css";
+import { getTranslation, numberFormat } from "../../utils";
 
 function ItemBasket(props) {
   const cn = bem("ItemBasket");
 
   const callbacks = {
-    onRemove: (e) => props.onRemove(props.item._id),
+    onRemove: () => props.onRemove(props.item._id),
   };
 
   const translate = {
-    removeFromBasketBtn:
-      props.lang && languages?.removeFromBasketBtn
-        ? languages.removeFromBasketBtn[props.lang]
-        : "Удалить",
+    removeFromBasketBtn: getTranslation(
+      "removeFromBasketBtn",
+      props.lang,
+      "Удалить"
+    ),
+  };
+
+  const formattedVals = {
+    price: numberFormat(props.item.price, props.lang, {
+      style: "currency",
+      currency: "RUB",
+    }),
+    amount: numberFormat(props.item.amount || 0),
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn("title")}>
         <Link to={`/product/${props.item._id}`} className={cn("link")}>
           {props.item.title}
         </Link>
       </div>
       <div className={cn("right")}>
-        <div className={cn("cell")}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn("cell")}>
-          {numberFormat(props.item.amount || 0)} шт
-        </div>
+        <div className={cn("cell")}>{formattedVals.price}</div>
+        <div className={cn("cell")}>{formattedVals.amount} шт</div>
         <div className={cn("cell")}>
           <button onClick={callbacks.onRemove}>
             {translate.removeFromBasketBtn}

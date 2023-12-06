@@ -1,19 +1,16 @@
 import { memo } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
-import { numberFormat } from "../../utils";
+
 import "./style.css";
 
-import languages from "../../languages.json";
+import { getTranslation, numberFormat } from "../../utils";
 
 function BasketTotal({ sum, lang }) {
   const cn = bem("BasketTotal");
 
   const translate = {
-    resultPriceLabel:
-      lang && languages?.resultPriceLabel
-        ? languages.resultPriceLabel[lang]
-        : "Итого",
+    resultPriceLabel: getTranslation("resultPriceLabel", lang, "Итого"),
   };
 
   return (

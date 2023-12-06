@@ -1,37 +1,25 @@
-import { useState, useEffect, useCallback } from "react";
+import { useCallback } from "react";
 
 import { useParams } from "react-router-dom";
 
-import PageLayout from "../../components/page-layout";
-import Head from "../../components/head";
-import Entities from "../../components/entities";
 import ProductDescription from "../../components/product-description";
 import Loader from "../../components/loader";
+
+import DefaultLayout from "../../layouts/default-layout";
 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-import getProduct from "../../api/product/get-product";
+import useProduct from "../../hooks/use-product";
 
-import languages from "../../languages.json";
+import { getTranslation } from "../../utils";
 
 function Product() {
   const params = useParams();
   const store = useStore();
-  const [loading, setLoading] = useState(true);
-  const [info, setInfo] = useState({
-    title: "",
-    description: "",
-    madeIn: "",
-    price: "",
-    edition: "",
-    category: "",
-  });
+  const { data, isLoading } = useProduct(params.id);
 
   const select = useSelector((state) => ({
-    list: state.catalog.list,
-    amount: state.basket.amount,
-    sum: state.basket.sum,
     activeLang: state.languages.active,
   }));
 
@@ -40,66 +28,36 @@ function Product() {
       (_id) => store.actions.basket.addToBasket(_id),
       [store]
     ),
-    openModalBasket: useCallback(
-      () => store.actions.modals.open("basket"),
-      [store]
+  };
+
+  const translate = {
+    addToBasketBtn: getTranslation(
+      "addToBasketBtn",
+      select.activeLang,
+      "Добавить"
     ),
   };
 
-  useEffect(() => {
-    const getProductEffect = async () => {
-      const {
-        result: { title, description, price, edition, madeIn, category },
-      } = await getProduct(params.id);
-      setInfo((prev) => ({
-        ...prev,
-        title,
-        description,
-        price,
-        edition,
-        madeIn: madeIn.title,
-        category: category.title,
-      }));
-      setLoading(false);
-    };
-
-    setLoading(true);
-    getProductEffect();
-  }, []);
-
-  const translate = {
-    addToBasketBtn:
-      select.activeLang && languages?.addToBasketBtn
-        ? languages.addToBasketBtn[select.activeLang]
-        : "Добавить",
-  };
-
   return (
-    <PageLayout>
-      <Head title={info.title} />
-      <Entities
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-        lang={select.activeLang}
-      />
-      {loading && <Loader />}
+    <DefaultLayout title={data.title}>
+      {isLoading && <Loader />}
 
-      {!loading && (
+      {!isLoading && (
         <ProductDescription
-          about={info.description}
-          price={info.price}
-          edition={info.edition}
-          madeIn={info.madeIn}
-          category={info.category}
+          about={data.description}
+          price={data.price}
+          edition={data.edition}
+          madeIn={data.madeIn}
+          category={data.category}
           addButton={
             <button onClick={() => callbacks.addToBasket(params.id)}>
               {translate.addToBasketBtn}
             </button>
           }
+          lang={select.activeLang}
         />
       )}
-    </PageLayout>
+    </DefaultLayout>
   );
 }
 

@@ -17,20 +17,21 @@ function App() {
   const store = useStore();
   const location = useLocation();
 
-  const activeModal = useSelector((state) => state.modals.name);
-  const activePage = useSelector((state) => state.catalog.activePage);
-  const activeLang = useSelector((state) => state.languages.active);
+  const select = useSelector((state) => ({
+    activeModal: state.modals.name,
+    activePage: state.catalog.activePage,
+  }));
 
   useEffect(() => {
     const controller = new AbortController();
     store.actions.catalog.load(controller.signal);
 
     return () => controller.abort();
-  }, [activePage]);
+  }, [select.activePage]);
 
   useEffect(() => {
     store.actions.modals.close();
-  }, [location.pathname]);
+  }, [location]);
 
   return (
     <>
@@ -39,7 +40,8 @@ function App() {
         <Route path="/catalog/:page?" element={<Main />} />
         <Route path="/product/:id?" element={<Product />} />
       </Routes>
-      {activeModal === "basket" && <Basket />}
+
+      {select.activeModal === "basket" && <Basket />}
     </>
   );
 }

@@ -42,5 +42,21 @@
   "removeFromBasketBtn": {
     "ru": "Удалить",
     "en": "Remove"
+  },
+  "countryMade": {
+    "ru": "Страна производитель",
+    "en": "Producing country"
+  },
+  "categoryProd": {
+    "ru": "Категория",
+    "en": "Category"
+  },
+  "yearRelease": {
+    "ru": "Год выпуска",
+    "en": "Year of release"
+  },
+  "priceLabel": {
+    "ru": "Цена",
+    "en": "Price"
   }
 }

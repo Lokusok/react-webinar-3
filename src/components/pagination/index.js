@@ -10,6 +10,10 @@ import PropTypes from "prop-types";
 function Pagination({ minPage, activePage, maxPage }) {
   const cn = bem("Pagination");
 
+  if (minPage === maxPage) {
+    return <></>;
+  }
+
   return (
     <div className={cn()}>
       <div className={cn("row")}>
