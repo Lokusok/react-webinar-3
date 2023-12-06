@@ -13,10 +13,14 @@ function BasketTotal({ sum, lang }) {
     resultPriceLabel: getTranslation("resultPriceLabel", lang, "Итого"),
   };
 
+  const formattedVals = {
+    price: numberFormat(sum, lang, { style: "currency", currency: "RUB" }),
+  };
+
   return (
     <div className={cn()}>
       <span className={cn("cell")}>{translate.resultPriceLabel}</span>
-      <span className={cn("cell")}> {numberFormat(sum)} ₽</span>
+      <span className={cn("cell")}>{formattedVals.price}</span>
       <span className={cn("cell")}></span>
     </div>
   );

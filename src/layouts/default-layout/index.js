@@ -9,8 +9,6 @@ import Entities from "../../components/entities";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-import languages from "../../languages.json";
-
 function DefaultLayout({ title, children }) {
   const store = useStore();
 
