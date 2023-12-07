@@ -1,23 +1,14 @@
 import "./style.css";
 import { cn as bem } from "@bem-react/classname";
 
-import useStore from "../../store/use-store";
-import useSelector from "../../store/use-selector";
+import PropTypes from "prop-types";
 
-function LanguageSwitcher() {
+function LanguageSwitcher({ onLanguageChange, activeLang }) {
   const cn = bem("LanguageSwitcher");
-  const store = useStore();
-  const activeLang = useSelector((state) => state.languages.active);
-
-  const callbacks = {
-    setLanguage: (lang) => {
-      store.actions.languages.setActive(lang);
-    },
-  };
 
   const handlers = {
     handleChange: (e) => {
-      callbacks.setLanguage(e.target.value);
+      onLanguageChange(e.target.value);
     },
   };
 
@@ -30,5 +21,10 @@ function LanguageSwitcher() {
     </div>
   );
 }
+
+LanguageSwitcher.propTypes = {
+  onLanguageChange: PropTypes.func.isRequired,
+  activeLang: PropTypes.oneOf(["ru", "en"]).isRequired,
+};
 
 export default LanguageSwitcher;

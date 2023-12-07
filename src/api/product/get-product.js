@@ -4,5 +4,5 @@ export default async function getProduct(id) {
   );
   const json = await response.json();
 
-  return json;
+  return json.result;
 }

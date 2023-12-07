@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import getProduct from "../api/product/get-product";
 
@@ -17,9 +17,8 @@ function useProduct(id) {
 
   useEffect(() => {
     const getProductEffect = async () => {
-      const {
-        result: { title, description, price, edition, madeIn, category },
-      } = await getProduct(id);
+      const { title, description, price, edition, madeIn, category } =
+        await getProduct(id);
       setData((prev) => ({
         ...prev,
         title,

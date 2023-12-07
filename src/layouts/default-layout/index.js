@@ -24,11 +24,19 @@ function DefaultLayout({ title, children }) {
       () => store.actions.modals.open("basket"),
       [store]
     ),
+    setLanguage: (lang) => {
+      store.actions.languages.setActive(lang);
+    },
   };
 
   return (
     <PageLayout>
-      <Head title={title}></Head>
+      <Head
+        title={title}
+        onLanguageChange={callbacks.setLanguage}
+        lang={select.activeLang}
+      ></Head>
+
       <Entities
         onOpen={callbacks.openModalBasket}
         amount={select.amount}

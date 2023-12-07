@@ -1,24 +1,20 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-
 import "./style.css";
 
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 
 import BasketTool from "../basket-tool";
-
-import languages from "../../languages.json";
+import Navigation from "../navigation";
 
 function Entities(props) {
   const cn = bem("Entities");
 
   return (
     <div className={cn()}>
-      <Link to="/" className={cn("link")}>
-        {languages.home[props.lang]}
-      </Link>
+      <Navigation lang={props.lang} />
+
       <BasketTool
         lang={props.lang}
         onOpen={props.onOpen}

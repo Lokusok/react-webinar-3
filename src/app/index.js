@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { Route, Routes, useLocation, useParams } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 
 import Main from "./main";
 import Basket from "./basket";
@@ -21,13 +21,6 @@ function App() {
     activeModal: state.modals.name,
     activePage: state.catalog.activePage,
   }));
-
-  useEffect(() => {
-    const controller = new AbortController();
-    store.actions.catalog.load(controller.signal);
-
-    return () => controller.abort();
-  }, [select.activePage]);
 
   useEffect(() => {
     store.actions.modals.close();

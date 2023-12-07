@@ -3,19 +3,5 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.Entities-link {
-  font-size: 18px;
-  color: #0087e9;
-  text-decoration: underline;
-  transition: opacity ease 0.2s;
-}
-
-.Entities-link:hover {
-  opacity: 0.7;
-}
-
-.Entities-link:active {
-  opacity: 0.45;
+  column-gap: 15px;
 }

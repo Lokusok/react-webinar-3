@@ -19,6 +19,7 @@ function Main() {
     list: state.catalog.list,
     maxPage: state.catalog.maxPage,
     activeLang: state.languages.active,
+    activePage: state.catalog.activePage,
   }));
 
   const callbacks = {
@@ -56,6 +57,13 @@ function Main() {
   const translate = {
     title: getTranslation("title", select.activeLang, "Магазин"),
   };
+
+  useEffect(() => {
+    const controller = new AbortController();
+    store.actions.catalog.load(controller.signal);
+
+    return () => controller.abort();
+  }, [select.activePage]);
 
   useEffect(() => {
     callbacks.setActivePage(page);
