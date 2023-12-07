@@ -17,7 +17,7 @@ function Head({ title, onLanguageChange, lang }) {
 Head.propTypes = {
   title: PropTypes.node,
   onLanguageChange: PropTypes.func.isRequired,
-  lang: PropTypes.oneOf(["ru", "en"]).isRequired,
+  lang: PropTypes.oneOf(["ru", "en"]),
 };
 
 Head.defaultProps = {

@@ -103,6 +103,7 @@ Pagination.propTypes = {
 
 Pagination.defaultProps = {
   minPage: 1,
+  maxPage: 1,
 };
 
 export default Pagination;
