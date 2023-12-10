@@ -39,6 +39,8 @@ function Product() {
 
   useEffect(() => {
     store.actions.product.load(params.id);
+
+    return () => store.actions.product.resetData();
   }, [params.id]);
 
   return (

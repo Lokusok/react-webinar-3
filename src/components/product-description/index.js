@@ -53,9 +53,11 @@ function ProductDescription(props) {
         </ul>
 
         <div className={cn("result")}>
-          <span className={cn("price")}>
-            {translate.priceLabel}: {formattedVals.price}
-          </span>
+          <div className={cn("price")}>
+            <span className={cn("price-label")}>{translate.priceLabel}:</span>
+
+            <span className={cn("price-value")}>{formattedVals.price}</span>
+          </div>
           <div>{props.addButton}</div>
         </div>
       </div>

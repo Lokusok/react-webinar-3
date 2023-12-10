@@ -23,6 +23,14 @@ class Product extends StoreModule {
       isLoading: false,
     });
   }
+
+  resetData() {
+    this.setState({
+      ...this.getState(),
+      data: {},
+      isLoading: true,
+    });
+  }
 }
 
 export default Product;
