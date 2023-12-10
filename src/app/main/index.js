@@ -44,6 +44,7 @@ function Main() {
       (item) => {
         return (
           <Item
+            url="/product"
             lang={select.activeLang}
             item={item}
             onAdd={callbacks.addToBasket}

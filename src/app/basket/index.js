@@ -36,6 +36,7 @@ function Basket() {
       (item) => {
         return (
           <ItemBasket
+            url="/product"
             lang={select.activeLang}
             item={item}
             onRemove={callbacks.removeFromBasket}

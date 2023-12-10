@@ -29,12 +29,13 @@ function ItemBasket(props) {
       currency: "RUB",
     }),
     amount: numberFormat(props.item.amount || 0),
+    url: `${props.url}/${props.item._id}`,
   };
 
   return (
     <div className={cn()}>
       <div className={cn("title")}>
-        <Link to={`/product/${props.item._id}`} className={cn("link")}>
+        <Link to={formattedVals.url} className={cn("link")}>
           {props.item.title}
         </Link>
       </div>
@@ -60,6 +61,7 @@ ItemBasket.propTypes = {
   }).isRequired,
   onRemove: PropTypes.func,
   lang: PropTypes.oneOf(["ru", "en"]),
+  url: PropTypes.isRequired,
 };
 
 ItemBasket.defaultProps = {

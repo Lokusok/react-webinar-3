@@ -24,12 +24,13 @@ function Item(props) {
       style: "currency",
       currency: "RUB",
     }),
+    url: `${props.url}/${props.item._id}`,
   };
 
   return (
     <div className={cn()}>
       <div className={cn("title")}>
-        <Link to={`/product/${props.item._id}`} className={cn("link")}>
+        <Link to={formattedVals.url} className={cn("link")}>
           {props.item.title}
         </Link>
       </div>
@@ -49,6 +50,7 @@ Item.propTypes = {
   }).isRequired,
   onAdd: PropTypes.func,
   lang: PropTypes.oneOf(["ru", "en"]),
+  url: PropTypes.string.isRequired,
 };
 
 Item.defaultProps = {
