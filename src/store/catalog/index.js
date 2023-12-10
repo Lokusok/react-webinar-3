@@ -28,7 +28,7 @@ class Catalog extends StoreModule {
     const skip = (activePage - 1) * limit;
 
     const response = await fetch(
-      `/api/v1/articles?limit=10&skip=${skip}&fields=items(_id, title, price),count`,
+      `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`,
       { signal }
     );
     const json = await response.json();

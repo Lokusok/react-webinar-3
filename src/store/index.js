@@ -12,6 +12,7 @@ class Store {
      * catalog: Catalog,
      * modals: Modals
      * languages: Languages
+     * product: Product
      * }} */
     this.actions = {};
     for (const name of Object.keys(modules)) {

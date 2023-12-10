@@ -12,7 +12,7 @@ function ProductDescription(props) {
   const cn = bem("ProductDescription");
 
   const formattedVals = {
-    price: numberFormat(props.price, props.lang, {
+    price: numberFormat(props.product.price, props.lang, {
       style: "currency",
       currency: "RUB",
     }),
@@ -32,19 +32,23 @@ function ProductDescription(props) {
   return (
     <div className={cn()}>
       <div className={cn("content")}>
-        <p className={cn("about")}>{props.about}</p>
+        <p className={cn("about")}>{props.product.description}</p>
         <ul className={cn("list")}>
           <li className={cn("descrItem")}>
             {translate.countryMade}:{" "}
-            <span className={cn("descrValue")}>{props.madeIn}</span>
+            <span className={cn("descrValue")}>
+              {props.product.madeIn.title}
+            </span>
           </li>
           <li className={cn("descrItem")}>
             {translate.categoryProd}:{" "}
-            <span className={cn("descrValue")}>{props.category}</span>
+            <span className={cn("descrValue")}>
+              {props.product.category.title}
+            </span>
           </li>
           <li className={cn("descrItem")}>
             {translate.yearRelease}:{" "}
-            <span className={cn("descrValue")}>{props.edition}</span>
+            <span className={cn("descrValue")}>{props.product.edition}</span>
           </li>
         </ul>
 
@@ -60,11 +64,13 @@ function ProductDescription(props) {
 }
 
 ProductDescription.propTypes = {
-  description: PropTypes.string,
-  price: PropTypes.number,
-  edition: PropTypes.number,
-  madeIn: PropTypes.string,
-  category: PropTypes.string,
+  product: PropTypes.shape({
+    description: PropTypes.string,
+    price: PropTypes.number,
+    edition: PropTypes.number,
+    madeIn: PropTypes.shape({ title: PropTypes.string }),
+    category: PropTypes.shape({ title: PropTypes.string }),
+  }),
   lang: PropTypes.oneOf(["ru", "en"]),
 };
 

@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -10,17 +10,16 @@ import DefaultLayout from "../../layouts/default-layout";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
-import useProduct from "../../hooks/use-product";
-
 import { getTranslation } from "../../utils";
 
 function Product() {
   const params = useParams();
   const store = useStore();
-  const { data, isLoading } = useProduct(params.id);
 
   const select = useSelector((state) => ({
     activeLang: state.languages.active,
+    product: state.product.data,
+    isLoading: state.product.isLoading,
   }));
 
   const callbacks = {
@@ -38,17 +37,17 @@ function Product() {
     ),
   };
 
-  return (
-    <DefaultLayout title={data.title}>
-      {isLoading && <Loader />}
+  useEffect(() => {
+    store.actions.product.load(params.id);
+  }, [params.id]);
 
-      {!isLoading && (
+  return (
+    <DefaultLayout title={select.product.title}>
+      {select.isLoading && <Loader />}
+
+      {!select.isLoading && (
         <ProductDescription
-          about={data.description}
-          price={data.price}
-          edition={data.edition}
-          madeIn={data.madeIn}
-          category={data.category}
+          product={select.product}
           addButton={
             <button onClick={() => callbacks.addToBasket(params.id)}>
               {translate.addToBasketBtn}
