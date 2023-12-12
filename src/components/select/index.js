@@ -2,17 +2,39 @@ import {memo} from "react";
 import PropTypes from 'prop-types';
 import './style.css';
 
-function Select(props) {
+import SelectItem from "../select-item";
 
+function Select(props) {
   const onSelect = (e) => {
     props.onChange(e.target.value);
   };
 
+  const renders = {
+    options: (options) => {
+      const elems = [];
+      let depth = 0;
+
+      const open = (items) => {
+        items.forEach((item) => {
+          elems.push(<SelectItem item={item} depth={depth} />);
+
+          if (item.children) {
+            depth++;
+            open(item.children);
+            depth--;
+          }
+        });
+      };
+
+      open(options);
+
+      return elems;
+    }
+  };
+
   return (
     <select className="Select" value={props.value} onChange={onSelect}>
-      {props.options.map(item => (
-        <option key={item.value} value={item.value}>{item.title}</option>
-      ))}
+      {renders.options(props.options)}
     </select>
   )
 }

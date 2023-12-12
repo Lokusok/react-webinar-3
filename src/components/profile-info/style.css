@@ -1,0 +1,23 @@
+.ProfileInfo {
+  padding: 20px;
+  padding-top: 43px;
+}
+
+.ProfileInfo-title {
+  font-size: 24px;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.ProfileInfo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.ProfileInfo-item {
+  font-size: 18px;
+}
