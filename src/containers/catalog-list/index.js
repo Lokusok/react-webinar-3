@@ -17,6 +17,8 @@ function CatalogList() {
     list: state.catalog.list,
     page: state.catalog.params.page,
     limit: state.catalog.params.limit,
+    sort: state.catalog.params.sort,
+    query: state.catalog.params.query,
     count: state.catalog.count,
     waiting: state.catalog.waiting,
   }));
