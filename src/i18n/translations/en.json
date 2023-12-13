@@ -14,5 +14,9 @@
   "basket.articles": {
     "one": "article",
     "other": "articles"
-  }
+  },
+  "loginStatus.enter": "Login",
+  "loginStatus.exit": "Exit",
+  "loginForm.title": "Login",
+  "loginForm.submit": "Login"
 }

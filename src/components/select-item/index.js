@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
+import "./style.css"
+import PropTypes from "prop-types";
 
 function SelectItem({ item, depth }) {
-  const depthIdentity = depth > 0 ? Array(depth).fill('-') : [];
+  const depthIdentity = Array(depth).fill('-');
 
   return (
     <option value={item.value}>{depthIdentity.join('')} {item.title}</option>

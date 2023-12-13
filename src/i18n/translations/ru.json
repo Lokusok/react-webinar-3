@@ -16,5 +16,9 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "loginStatus.enter": "Вход",
+  "loginStatus.exit": "Выход",
+  "loginForm.title": "Вход",
+  "loginForm.submit": "Войти"
 }

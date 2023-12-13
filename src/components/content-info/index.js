@@ -16,7 +16,7 @@ function ContentInfo(props) {
 }
 
 ContentInfo.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.node,
   children: PropTypes.node,
 };
 

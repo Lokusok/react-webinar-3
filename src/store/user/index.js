@@ -17,7 +17,7 @@ class UserState extends StoreModule {
    * Установка токена
    * @param token
    */
-  setLang(token) {
+  setToken(token) {
     this.setState({
       ...this.getState(),
       auth: {
@@ -38,7 +38,7 @@ class UserState extends StoreModule {
     const json = await response.json();
 
     if (json.error) {
-      this.setAuthError(json.error);
+      this.setAuthError(json.error.message);
     } else if (json.result.token) {
       // this.setAuthToken(json.result.token);
       this.authUserByToken(json.result.token);
@@ -86,8 +86,9 @@ class UserState extends StoreModule {
 
     if (token) {
       await this.authUserByToken(token);
-      this.setState({ ...this.getState(), isLoading: false, })
     }
+
+    this.setState({ ...this.getState(), isLoading: false, })
   }
 
   setAuthError(error) {

@@ -32,6 +32,7 @@ function LoginForm(props) {
         <label className={cn('label')}>
           Логин
           <input
+            required={true}
             onChange={callbacks.onChange}
             value={data['login']}
             className={cn('input')}
@@ -43,6 +44,7 @@ function LoginForm(props) {
         <label className={cn('label')}>
           Пароль
           <input
+            required={true}
             onChange={callbacks.onChange}
             value={data['password']}
             className={cn('input')}
@@ -58,7 +60,7 @@ function LoginForm(props) {
         }
 
         <div>
-          <button type="submit">Войти</button>
+          <button type="submit">{props.t('loginForm.submit')}</button>
         </div>
       </form>
     </ContentInfo>
@@ -69,6 +71,11 @@ LoginForm.propTypes = {
   title: PropTypes.string,
   onSubmit: PropTypes.func,
   error: PropTypes.string,
+  t: PropTypes.func,
+};
+
+LoginForm.defaultProps = {
+  t: (text) => text,
 };
 
 export default LoginForm;

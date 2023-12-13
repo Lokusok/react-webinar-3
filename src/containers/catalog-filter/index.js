@@ -32,6 +32,12 @@ function CatalogFilter() {
   };
 
   const options = {
+    sort: useMemo(() => ([
+      {value: 'order', title: 'По порядку'},
+      {value: 'title.ru', title: 'По именованию'},
+      {value: '-price', title: 'Сначала дорогие'},
+      {value: 'edition', title: 'Древние'},
+    ]), []),
     categories: useMemo(() => {
       const baseCategories = [
         { value: '', title: 'Все' },
@@ -49,7 +55,18 @@ function CatalogFilter() {
 
   return (
     <SideLayout padding='medium'>
-      <Select options={options.categories} value={select.category} onChange={callbacks.onCategorySet}/>
+      <Select
+        options={options.categories}
+        childrenKey={'children'}
+        value={select.category}
+        onChange={callbacks.onCategorySet}
+      />
+      <Select
+        options={options.sort}
+        childrenKey={'children'}
+        value={select.sort}
+        onChange={callbacks.onSort}
+      />
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
              delay={1000}/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>

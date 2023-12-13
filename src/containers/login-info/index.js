@@ -4,10 +4,12 @@ import LoginStatus from "../../components/login-status";
 
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import useTranslate from "../../hooks/use-translate";
 
 function LoginInfo() {
   const store = useStore();
   const navigate = useNavigate();
+  const {t} = useTranslate();
 
   const select = useSelector((state) => ({
     token: state.user.auth.token,
@@ -32,6 +34,7 @@ function LoginInfo() {
       onClickLogin={callbacks.onClickLogin}
       onClickExit={callbacks.onClickExit}
       isAuthorized={options.isAuthorized}
+      t={t}
     />
   );
 }

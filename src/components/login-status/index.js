@@ -12,14 +12,14 @@ function LoginStatus(props) {
     return (
       <div className={cn()}>
         <Link to="/profile">{props.username}</Link>
-        <button onClick={props.onClickExit}>Выход</button>
+        <button onClick={props.onClickExit}>{props.t('loginStatus.exit')}</button>
       </div>
     )
   }
 
   return (
     <div className={cn()}>
-      <button onClick={props.onClickLogin}>Вход</button>
+      <button onClick={props.onClickLogin}>{props.t('loginStatus.enter')}</button>
     </div>
   )
 }
@@ -29,6 +29,11 @@ LoginStatus.propTypes = {
   onClickLogin: PropTypes.func,
   onClickExit: PropTypes.func,
   username: PropTypes.string,
+  t: PropTypes.func,
+};
+
+LoginStatus.defaultProps = {
+  t: (text) => text,
 };
 
 export default LoginStatus;

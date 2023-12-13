@@ -18,9 +18,9 @@ function Select(props) {
         items.forEach((item) => {
           elems.push(<SelectItem key={item.value} item={item} depth={depth} />);
 
-          if (item.children) {
+          if (item[props.childrenKey]) {
             depth++;
-            open(item.children);
+            open(item[props.childrenKey]);
             depth--;
           }
         });
@@ -45,12 +45,14 @@ Select.propTypes = {
     title: PropTypes.string
   })).isRequired,
   value: PropTypes.any,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  childrenKey: PropTypes.string,
 };
 
 Select.defaultProps = {
   onChange: () => {
-  }
+  },
+  childrenKey: 'children',
 }
 
 export default memo(Select);

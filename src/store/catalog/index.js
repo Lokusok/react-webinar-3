@@ -95,7 +95,8 @@ class CatalogState extends StoreModule {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
-      'search[query]': params.query
+      sort: params.sort,
+      'search[query]': params.query,
     };
 
     if (params.category) {

@@ -11,10 +11,12 @@ import LoginForm from "../../components/login-form";
 
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
+import useTranslate from "../../hooks/use-translate";
 
 function Login() {
   const store = useStore();
   const navigate = useNavigate();
+  const {t} = useTranslate();
 
   const select = useSelector((state) => ({
     error: state.user.auth.error,
@@ -45,9 +47,10 @@ function Login() {
       <Navigation/>
 
       <LoginForm
-        title='Вход'
+        title={t('loginForm.title')}
         error={select.error}
         onSubmit={callbacks.onSubmit}
+        t={t}
       />
     </PageLayout>
   )
