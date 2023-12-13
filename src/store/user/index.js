@@ -4,7 +4,7 @@ class UserState extends StoreModule {
 
   initState() {
     return {
-      isLoading: true,
+      waiting: true,
       auth: {
         token: null,
         error: null,
@@ -40,7 +40,6 @@ class UserState extends StoreModule {
     if (json.error) {
       this.setAuthError(json.error.message);
     } else if (json.result.token) {
-      // this.setAuthToken(json.result.token);
       this.authUserByToken(json.result.token);
     }
   }
@@ -58,11 +57,10 @@ class UserState extends StoreModule {
       const { result } = json;
       // Валидный токен - в state и localStorage
       this.setAuthToken(token);
-
       this.setState({
         ...this.getState(),
         info: {
-          login: result.username,
+          login: result.profile.name,
           email: result.email,
           name: result.profile.name,
           phone: result.profile.phone,
@@ -81,14 +79,14 @@ class UserState extends StoreModule {
       return;
     }
 
-    this.setState({ ...this.getState(), isLoading: true, });
+    this.setState({ ...this.getState(), waiting: true, });
     const token = window.localStorage.getItem('token');
 
     if (token) {
       await this.authUserByToken(token);
     }
 
-    this.setState({ ...this.getState(), isLoading: false, })
+    this.setState({ ...this.getState(), waiting: false, })
   }
 
   setAuthError(error) {

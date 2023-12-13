@@ -49,7 +49,3 @@ export function buildTree(array) {
 
   return [...map.values()].filter(item => !item.parent);
 }
-
-export function openTree(tree) {
-
-}

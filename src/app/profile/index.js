@@ -18,7 +18,7 @@ function Profile() {
   const select = useSelector((state) => ({
     token: state.user.auth.token,
     info: state.user.info,
-    isLoading: state.user.isLoading,
+    waiting: state.user.waiting,
   }));
 
   useEffect(() => {
@@ -26,10 +26,10 @@ function Profile() {
   }, []);
 
   useEffect(() => {
-    if (!select.token && !select.isLoading) {
+    if (!select.token && !select.waiting) {
       navigate('/login');
     }
-  }, [select.token, select.isLoading]);
+  }, [select.token, select.waiting]);
 
   return (
     <PageLayout head={<LoginInfo />}>
