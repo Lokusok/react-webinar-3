@@ -1,31 +1,42 @@
+import PropTypes from 'prop-types';
+
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function ProfileInfo() {
+import ContentInfo from '../content-info';
+
+function ProfileInfo({ title, info }) {
   const cn = bem('ProfileInfo');
 
   return (
-    <div className={cn()}>
-      <h3 className={cn('title')}>Профиль</h3>
-
+    <ContentInfo title={<h3 className={cn('title')}>{title}</h3>}>
       <ul className={cn('list')}>
         <li className={cn('item')}>
           <span className={cn('key')}>Имя:{' '}</span>
-          <b className={cn('value')}>User №1</b>
+          <b className={cn('value')}>{info.name}</b>
         </li>
 
         <li className={cn('item')}>
           <span className={cn('key')}>Телефон:{' '}</span>
-          <b className={cn('value')}>+70000000001</b>
+          <b className={cn('value')}>{info.phone}</b>
         </li>
 
         <li className={cn('item')}>
           <span className={cn('key')}>email:{' '}</span>
-          <b className={cn('value')}>test_50@example.com</b>
+          <b className={cn('value')}>{info.email}</b>
         </li>
       </ul>
-    </div>
+    </ContentInfo>
   );
 }
+
+ProfileInfo.propTypes = {
+  title: PropTypes.string,
+  info: PropTypes.shape({
+    name: PropTypes.string,
+    phone: PropTypes.string,
+    email: PropTypes.string,
+  }),
+};
 
 export default ProfileInfo;

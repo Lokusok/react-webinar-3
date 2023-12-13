@@ -2,21 +2,15 @@ import {memo} from "react";
 import PropTypes from "prop-types";
 import './style.css';
 
-import LoginStatus from "../../containers/login-status";
+import LoginInfo from "../../containers/login-info";
 
 function Head({title, children}) {
   return (
     <div className='Head'>
-      <div className='Head-outer'>
-        <LoginStatus />
+      <div className='Head-place'>
+        <h1>{title}</h1>
       </div>
-
-      <div className='Head-row'>
-        <div className='Head-place'>
-          <h1>{title}</h1>
-        </div>
-        <div className='Head-place'>{children}</div>
-      </div>
+      <div className='Head-place'>{children}</div>
     </div>
   )
 }

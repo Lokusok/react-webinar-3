@@ -1,0 +1,6 @@
+.LoginStatus {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 20px;
+}

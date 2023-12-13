@@ -31,8 +31,6 @@ class CatalogState extends StoreModule {
     const categoriesFetched = (await response.json()).result.items;
     const categories = buildTree(categoriesFetched);
 
-    console.log(categories);
-
     this.setState({
       ...this.getState(),
       categories
@@ -92,8 +90,6 @@ class CatalogState extends StoreModule {
     } else {
       window.history.pushState({}, '', url);
     }
-
-    console.log('category: ', params.category);
 
     const apiParams = {
       limit: params.limit,

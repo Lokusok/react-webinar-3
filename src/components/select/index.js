@@ -16,7 +16,7 @@ function Select(props) {
 
       const open = (items) => {
         items.forEach((item) => {
-          elems.push(<SelectItem item={item} depth={depth} />);
+          elems.push(<SelectItem key={item.value} item={item} depth={depth} />);
 
           if (item.children) {
             depth++;

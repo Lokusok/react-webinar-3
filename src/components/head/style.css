@@ -1,10 +1,4 @@
-.Head-outer {
-  padding: 10px 20px;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.Head-row {
+.Head {
   height: 80px;
   background: #f5f5f5;
   display: flex;
