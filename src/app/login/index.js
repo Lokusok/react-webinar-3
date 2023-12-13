@@ -28,12 +28,12 @@ function Login() {
   };
 
   useEffect(() => {
-    store.actions.user.initAuth();
+    store.actions.user.initAuth(false);
   }, []);
 
   useEffect(() => {
     if (select.token) {
-      navigate('/profile');
+      navigate('/profile', { replace: true });
     }
   }, [select.token]);
 

@@ -40,7 +40,7 @@ class UserState extends StoreModule {
     if (json.error) {
       this.setAuthError(json.error);
     } else if (json.result.token) {
-      this.setAuthCorrect(json.result.token, login);
+      // this.setAuthToken(json.result.token);
       this.authUserByToken(json.result.token);
     }
   }
@@ -52,24 +52,36 @@ class UserState extends StoreModule {
         'X-Token': token
       },
     });
-    const { result } = await response.json();
-    this.setState({
-      ...this.getState(),
-      auth: {
-        ...this.getState().auth,
-        token,
-      },
-      info: {
-        login: result.username,
-        email: result.email,
-        name: result.profile.name,
-        phone: result.profile.phone,
-      }
-    });
+    const json = await response.json();
+
+    if (response.ok) {
+      const { result } = json;
+      // Валидный токен - в state и localStorage
+      this.setAuthToken(token);
+
+      this.setState({
+        ...this.getState(),
+        info: {
+          login: result.username,
+          email: result.email,
+          name: result.profile.name,
+          phone: result.profile.phone,
+        }
+      });
+    } else if (json.error) {
+      // Не валидный токен - удалить от всюду
+      this.removeAuthFull();
+    }
   }
 
-  async initAuth() {
-    this.setState({ ...this.getState(), isLoading: true });
+  async initAuth(full = true) {
+    // Во избежание дополнительных запросов
+    // Запроса за пользователем с главной страницы не будет, если он авторизован
+    if (!full && this.getState().auth.token) {
+      return;
+    }
+
+    this.setState({ ...this.getState(), isLoading: true, });
     const token = window.localStorage.getItem('token');
 
     if (token) {
@@ -88,16 +100,13 @@ class UserState extends StoreModule {
     });
   }
 
-  setAuthCorrect(token, login) {
+  setAuthToken(token) {
     this.setState({
       ...this.getState(),
       auth: {
         token: token,
         error: null,
       },
-      info: {
-        login: login,
-      }
     });
     window.localStorage.setItem('token', token);
   }
