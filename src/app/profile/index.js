@@ -23,7 +23,7 @@ function Profile() {
 
   useEffect(() => {
     store.actions.user.initAuth();
-  }, []);
+  }, [select.token]);
 
   useEffect(() => {
     if (!select.token && !select.waiting) {
