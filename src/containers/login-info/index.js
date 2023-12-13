@@ -20,7 +20,7 @@ function LoginInfo() {
     onClickLogin: () => navigate('/login'),
     onClickExit: () => {
       store.actions.user.removeAuthFull();
-      navigate('/login');
+      // navigate('/login'); // Если потребуется переход на страницу входа
     },
   };
 

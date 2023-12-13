@@ -2,10 +2,10 @@ import "./style.css"
 import PropTypes from "prop-types";
 
 function SelectItem({ item, depth }) {
-  const depthIdentity = Array(depth).fill('-');
+  const depthIdentity = Array(depth).fill('- ').join('').trim();
 
   return (
-    <option value={item.value}>{depthIdentity.join('')} {item.title}</option>
+    <option value={item.value}>{depthIdentity} {item.title}</option>
   )
 }
 
