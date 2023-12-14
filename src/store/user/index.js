@@ -111,6 +111,14 @@ class UserState extends StoreModule {
   }
 
   removeAuthFull() {
+    fetch('/api/v1/users/sign', {
+      method: 'DELETE',
+      headers: {
+        'X-Token': this.getState().auth.token,
+        'Content-Type': 'application/json',
+      }
+    });
+
     this.reset();
     window.localStorage.removeItem('token');
   }

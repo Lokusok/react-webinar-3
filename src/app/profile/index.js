@@ -22,7 +22,9 @@ function Profile() {
   }));
 
   useEffect(() => {
-    store.actions.user.initAuth();
+    if (!select.token) {
+      store.actions.user.initAuth();
+    }
   }, [select.token]);
 
   useEffect(() => {
