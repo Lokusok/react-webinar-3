@@ -28,4 +28,5 @@
 
 .LoginForm-error {
   color: #f00;
+  white-space: pre-wrap;
 }

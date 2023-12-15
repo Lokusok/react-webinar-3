@@ -12,14 +12,15 @@ function LoginInfo() {
   const {t} = useTranslate();
 
   const select = useSelector((state) => ({
-    token: state.user.auth.token,
-    login: state.user.info.login,
+    token: state.session.auth.token,
+    login: state.session.auth.login,
   }));
 
   const callbacks = {
     onClickLogin: () => navigate('/login'),
     onClickExit: () => {
-      store.actions.user.removeAuthFull();
+      store.actions.session.removeAuthFull();
+      store.actions.user.reset();
       // navigate('/login'); // Если потребуется переход на страницу входа
     },
   };

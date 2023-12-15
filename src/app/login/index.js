@@ -19,18 +19,20 @@ function Login() {
   const {t} = useTranslate();
 
   const select = useSelector((state) => ({
-    error: state.user.auth.error,
-    token: state.user.auth.token,
+    error: state.session.auth.error,
+    token: state.session.auth.token,
   }));
 
   const callbacks = {
     onSubmit: (login, password) => {
-      store.actions.user.authUser(login, password);
+      store.actions.session.authUserByData(login, password);
     },
   };
 
   useEffect(() => {
-    store.actions.user.initAuth(false);
+    store.actions.session.initAuth(false);
+
+    return () => store.actions.session.removeError();
   }, []);
 
   useEffect(() => {

@@ -18,7 +18,7 @@ function Main() {
   const store = useStore();
 
   useEffect(() => {
-    store.actions.user.initAuth(false);
+    store.actions.session.initAuth(false);
   }, []);
 
   useInit(() => {

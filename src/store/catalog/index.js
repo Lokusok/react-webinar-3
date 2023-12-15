@@ -1,5 +1,4 @@
 import StoreModule from "../module";
-import { buildTree } from "../../utils";
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -22,19 +21,7 @@ class CatalogState extends StoreModule {
       },
       count: 0,
       waiting: false,
-      categories: [],
     }
-  }
-
-  async loadCategories() {
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const categoriesFetched = (await response.json()).result.items;
-    const categories = buildTree(categoriesFetched);
-
-    this.setState({
-      ...this.getState(),
-      categories
-    });
   }
 
   /**

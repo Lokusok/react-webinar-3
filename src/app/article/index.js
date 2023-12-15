@@ -24,7 +24,7 @@ function Article() {
   const params = useParams();
 
   useEffect(() => {
-    store.actions.user.initAuth(false);
+    store.actions.session.initAuth(false);
   }, []);
 
   useInit(() => {

@@ -16,22 +16,24 @@ function Profile() {
   const store = useStore();
   const navigate = useNavigate();
   const select = useSelector((state) => ({
-    token: state.user.auth.token,
+    token: state.session.auth.token,
     info: state.user.info,
-    waiting: state.user.waiting,
+    sessionWaiting: state.session.waiting,
   }));
 
   useEffect(() => {
     if (!select.token) {
-      store.actions.user.initAuth();
+      store.actions.session.initAuth();
+    } else {
+      store.actions.user.getInfoByToken(select.token);
     }
   }, [select.token]);
 
   useEffect(() => {
-    if (!select.token && !select.waiting) {
+    if (!select.token && !select.sessionWaiting) {
       navigate('/login');
     }
-  }, [select.token, select.waiting]);
+  }, [select.token, select.sessionWaiting]);
 
   return (
     <PageLayout head={<LoginInfo />}>

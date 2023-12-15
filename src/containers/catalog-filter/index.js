@@ -17,7 +17,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories,
+    categories: state.categories.list,
   }));
 
   const callbacks = {
@@ -50,7 +50,7 @@ function CatalogFilter() {
   const {t} = useTranslate();
 
   useEffect(() => {
-    store.actions.catalog.loadCategories();
+    store.actions.categories.loadCategories();
   }, []);
 
   return (
@@ -68,7 +68,7 @@ function CatalogFilter() {
         onChange={callbacks.onSort}
       />
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={1000} theme="big" />
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )
