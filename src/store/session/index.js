@@ -5,6 +5,7 @@ class SessionState extends StoreModule {
     return {
       waiting: true,
       auth: {
+        id: null,
         token: null,
         error: null,
         login: null,
@@ -34,7 +35,7 @@ class SessionState extends StoreModule {
   }
 
   async authByToken(token) {
-    const response = await fetch('/api/v1/users/self?fields=*', {
+    const response = await fetch('/api/v1/users/self?fields=_id,profile(name)', {
       headers: {
         'Content-Type': 'application/json',
         'X-Token': token
@@ -46,18 +47,27 @@ class SessionState extends StoreModule {
       const { result } = json;
 
       this.setAuthToken(token);
-      this.setLogin(result.profile.name);
+
+      this.setState({
+        ...this.getState(),
+        auth: {
+          ...this.getState().auth,
+          error: null,
+          login: result.profile.name,
+          id: result._id
+        }
+      });
     } else {
       // Не валидный токен - удалить от всюду
       this.removeAuthFull();
     }
   }
 
-  async initAuth(full = true) {
+  async initAuth() {
     this.setWaiting(true);
     // Во избежание дополнительных запросов
-    // Запроса за пользователем с главной страницы не будет, если он авторизован
-    if (!full && this.getState().auth.token) {
+    // Запроса за пользователем не будет, если он авторизован
+    if (this.getState().auth.token) {
       return;
     }
 

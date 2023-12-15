@@ -5,9 +5,9 @@ import Head from "../../components/head";
 import PageLayout from "../../components/page-layout";
 import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
+import LoginInfo from "../../containers/login-info";
 
 import ProfileInfo from "../../components/profile-info";
-import LoginInfo from "../../containers/login-info";
 
 import useSelector from "../../hooks/use-selector";
 import useStore from "../../hooks/use-store";
@@ -19,6 +19,7 @@ function Profile() {
     token: state.session.auth.token,
     info: state.user.info,
     sessionWaiting: state.session.waiting,
+    userId: state.session.auth.id,
   }));
 
   useEffect(() => {
