@@ -17,10 +17,6 @@ function Main() {
 
   const store = useStore();
 
-  useEffect(() => {
-    store.actions.session.initAuth();
-  }, []);
-
   useInit(() => {
     store.actions.catalog.initParams();
   }, [], true);

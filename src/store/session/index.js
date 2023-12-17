@@ -65,11 +65,6 @@ class SessionState extends StoreModule {
 
   async initAuth() {
     this.setWaiting(true);
-    // Во избежание дополнительных запросов
-    // Запроса за пользователем не будет, если он авторизован
-    if (this.getState().auth.token) {
-      return;
-    }
 
     const token = window.localStorage.getItem('token');
 

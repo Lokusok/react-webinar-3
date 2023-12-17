@@ -30,8 +30,6 @@ function Login() {
   };
 
   useEffect(() => {
-    store.actions.session.initAuth();
-
     return () => store.actions.session.removeError();
   }, []);
 
