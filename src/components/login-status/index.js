@@ -11,7 +11,7 @@ function LoginStatus(props) {
   if (props.isAuthorized) {
     return (
       <div className={cn()}>
-        <Link to="/profile">{props.username}</Link>
+        <Link to={props.profileLink}>{props.username}</Link>
         <button onClick={props.onClickExit}>{props.t('loginStatus.exit')}</button>
       </div>
     )
@@ -30,6 +30,7 @@ LoginStatus.propTypes = {
   onClickExit: PropTypes.func,
   username: PropTypes.string,
   t: PropTypes.func,
+  profileLink: PropTypes.string.isRequired,
 };
 
 LoginStatus.defaultProps = {

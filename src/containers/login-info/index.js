@@ -35,6 +35,7 @@ function LoginInfo() {
       onClickLogin={callbacks.onClickLogin}
       onClickExit={callbacks.onClickExit}
       isAuthorized={options.isAuthorized}
+      profileLink='/profile'
       t={t}
     />
   );

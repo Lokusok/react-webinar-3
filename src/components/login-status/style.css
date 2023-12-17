@@ -1,7 +1,5 @@
 .LoginStatus {
-  padding: 10px 20px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   column-gap: 20px;
   font-size: 13px;
