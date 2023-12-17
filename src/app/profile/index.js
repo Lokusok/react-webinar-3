@@ -23,7 +23,7 @@ function Profile() {
 
   useInit(() => {
     if (select.token) {
-      store.actions.user.getInfoByToken(select.token);
+      store.actions.user.setInfoByToken(select.token);
     }
   }, [select.token]);
 

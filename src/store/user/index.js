@@ -8,7 +8,7 @@ class UserState extends StoreModule {
     };
   }
 
-  async getInfoByToken(token) {
+  async setInfoByToken(token) {
     this.setWaiting(true);
 
     const response = await fetch('/api/v1/users/self?fields=*', {
