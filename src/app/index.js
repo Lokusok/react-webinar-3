@@ -36,7 +36,7 @@ function App() {
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/login'} element={<Login />} />
         <Route path={'/profile'} element={(
-          <AuthOnly>
+          <AuthOnly loginUrl='/login'>
             <Profile />
           </AuthOnly>
         )} />

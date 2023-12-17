@@ -16,8 +16,7 @@ function AuthOnly({ children, loginUrl }) {
 
   useEffect(() => {
     if (!select.token && !select.sessionWaiting) {
-      // navigate(loginUrl, { replace: true });
-      navigate('/login', { replace: true });
+      navigate(loginUrl, { replace: true });
     }
   }, [select.token, select.sessionWaiting]);
 
@@ -30,7 +29,7 @@ function AuthOnly({ children, loginUrl }) {
 
 AuthOnly.propTypes = {
   children: PropTypes.node.isRequired,
-  loginUrl: PropTypes.string
+  loginUrl: PropTypes.string.isRequired,
 };
 
 export default AuthOnly;
