@@ -1,0 +1,44 @@
+.Comment {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.Comment-header {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.Comment-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.Comment-date {
+  color: #666;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.Comment-text {
+  margin: 0;
+}
+
+.Comment-action {
+  appearance: none;
+  background: none;
+  border: none;
+  border-radius: none;
+  color: #0087E9;
+  font-size: 12px;
+  font-family: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.Comment-action:hover {
+  text-decoration: underline;
+}

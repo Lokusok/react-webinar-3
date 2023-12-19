@@ -33,6 +33,8 @@ function CatalogFilter() {
     }), [store]),
   };
 
+  console.log('Categories default here:', select.categories);
+
   const options = {
     // Варианты сортировок
     sort: useMemo(() => ([
@@ -49,6 +51,8 @@ function CatalogFilter() {
       ))
     ]), [select.categories]),
   };
+
+  console.log(options.categories, '<----');
 
   const {t} = useTranslate();
 

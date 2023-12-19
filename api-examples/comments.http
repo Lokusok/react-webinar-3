@@ -3,3 +3,14 @@
 GET http://example.front.ylab.io/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=65817bed5c295a2ff2fcd189
 
 # Остальные методы в http://example.front.ylab.io/api/v1/docs/ (http://localhost:8010/api/v1/docs/)
+
+###
+# Создание коммента
+POST http://example.front.ylab.io/api/v1/comments
+Content-Type: application/json
+X-Token: ed9b341d85860b91420b216594a433c1e3d564cd7246e714ee02b3ec395a6ce5
+
+{
+  "text": "Первый коммент!",
+  "parent": {"_id":  "65817bed5c295a2ff2fcd189", "_type":  "article"}
+}

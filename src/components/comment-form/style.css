@@ -1,0 +1,29 @@
+.CommentForm {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.CommentForm-title {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.CommentForm-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.CommentForm-textarea {
+  min-height: 76px;
+  resize: none;
+  padding: 5px;
+  font: inherit;
+  font-size: 14px;
+}
+
+.CommentForm-buttons {
+  display: flex;
+  column-gap: 10px;
+}
