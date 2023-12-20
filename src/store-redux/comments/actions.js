@@ -45,7 +45,6 @@ export default {
         });
 
         // Обновление по добавлению коммента
-        // dispatch(this.load(articleId, true));
         dispatch({type: 'comments/add-new', payload: { item: res.data.result }})
         dispatch({type: 'comments/add-new-end'});
       } catch (e) {

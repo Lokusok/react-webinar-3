@@ -14,6 +14,8 @@ import Spinner from '../../components/spinner';
 
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
+import CommentsTitle from '../../components/comments-title';
+import CommentsLayout from '../../components/comments-layout';
 
 function Comments(props) {
   const dispatch = useDispatchRedux();
@@ -73,21 +75,28 @@ function Comments(props) {
 
   return (
     <Spinner disable={true} active={select.waiting}>
-      <CommentsList
-        title={props.t('comments.title')}
-        formPosition={formPosition}
-        setFormPosition={setFormPosition}
-        comments={options.comments}
-        onCommentFormSubmit={callbacks.onCommentFormSubmit}
-        isFormDisplayed={defaultSelect.isAuth}
-        warningCmp={renders.formWarning}
-        warningCmpAdvanced={renders.formWarningAdvanced}
-        commentFormFooter={renders.commentFormFooter}
-        commentFormComment={renders.commentFormComment}
-        currentUsername={defaultSelect.currentUsername}
-        maxCommentLevel={options.maxCommentLevel}
-        commentOffsetPer={options.commentOffsetPer}
-      />
+      <CommentsLayout
+        title={(
+          <CommentsTitle count={options.comments.length}>
+            {props.t('comments.title')}
+          </CommentsTitle>
+        )}>
+
+        <CommentsList
+          formPosition={formPosition}
+          setFormPosition={setFormPosition}
+          comments={options.comments}
+          onCommentFormSubmit={callbacks.onCommentFormSubmit}
+          isFormDisplayed={defaultSelect.isAuth}
+          warningCmp={renders.formWarning}
+          warningCmpAdvanced={renders.formWarningAdvanced}
+          commentFormFooter={renders.commentFormFooter}
+          commentFormComment={renders.commentFormComment}
+          currentUsername={defaultSelect.currentUsername}
+          maxCommentLevel={options.maxCommentLevel}
+          commentOffsetPer={options.commentOffsetPer}
+        />
+      </CommentsLayout>
     </Spinner>
   );
 }

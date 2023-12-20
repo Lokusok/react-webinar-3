@@ -8,7 +8,7 @@ class I18nService {
    */
   constructor(services, config = {}) {
     this.services = services;
-    this.lang = 'ru';
+    this.lang = config.defaultLang;
   }
 
   translate(lang, text, plural) {
@@ -28,13 +28,10 @@ class I18nService {
     return result;
   }
 
-  setLang(langObj) {
-    this.lang = langObj;
+  setLang(newLang) {
+    this.lang = newLang;
+    this.services.api.setHeader('X-lang', newLang);
   }
-
-  // get t() {
-  //   return (text, number, lang) => this.translate(this.lang, text, number)
-  // }
 }
 
 export default I18nService;

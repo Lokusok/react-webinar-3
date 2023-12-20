@@ -8,16 +8,8 @@ import Comment from '../comment';
 function CommentsList(props) {
   const cn = bem('CommentsList');
 
-  const values = {
-    count: props.comments.length,
-  };
-
   return (
     <div className={cn()}>
-      <div className={cn('header')}>
-        <h3 className={cn('title')}>{props.title} ({values.count})</h3>
-      </div>
-
       <ul className={cn('list')}>
         {props.comments.map((comment) => (
           <li key={comment._id}>
@@ -47,7 +39,6 @@ function CommentsList(props) {
 }
 
 CommentsList.propTypes = {
-  title: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
   formPosition: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   setFormPosition: PropTypes.func,

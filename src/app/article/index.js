@@ -19,14 +19,15 @@ function Article({ translate }) {
   const store = useStore();
 
   const dispatch = useDispatch();
-  // Параметры из пути /articles/:id
 
+  // Параметры из пути /articles/:id
   const params = useParams();
 
+  const {lang, setLang, t} = translate;
+
   useInit(() => {
-    //store.actions.article.load(params.id);
     dispatch(articleActions.load(params.id));
-  }, [params.id]);
+  }, [lang, params.id]);
 
   const select = useSelector(state => ({
     article: state.article.data,
@@ -37,8 +38,6 @@ function Article({ translate }) {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
-
-  const {lang, setLang, t} = translate;
 
   return (
     <PageLayout>

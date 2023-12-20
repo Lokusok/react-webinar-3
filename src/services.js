@@ -1,5 +1,5 @@
 import APIService from './api';
-import I18nService from './service/i18n';
+import I18nService from './i18n';
 import Store from './store';
 import createStoreRedux from './store-redux';
 
