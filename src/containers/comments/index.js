@@ -1,4 +1,4 @@
-import { useState, memo, useEffect } from 'react';
+import { useState, memo, useEffect, useMemo } from 'react';
 
 import { useDispatch as useDispatchRedux, useSelector as useSelectorRedux } from 'react-redux';
 
@@ -36,9 +36,9 @@ function Comments(props) {
   };
 
   const options = {
-    comments: treeToList(listToTree(select.comments), (comment, level) => ({
+    comments: useMemo(() => treeToList(listToTree(select.comments), (comment, level) => ({
       _id: comment._id, author: comment.author, text: comment.text, dateCreate: comment.dateCreate, level: level - 1
-    })).slice(1),
+    })).slice(1), [select.comments]),
     warningUrl: '/login',
     maxCommentLevel: 25,
     commentOffsetPer: 30,
