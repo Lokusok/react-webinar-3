@@ -11,7 +11,7 @@ function CommentFormWarning({ loginUrl, variant, onClickCancel }) {
   return (
     <>
       <p className={cn()}>
-        <Link to={loginUrl}>Войдите</Link>, чтобы иметь возможность комментировать.
+        <Link to={loginUrl} state={{ back: window.location.pathname }}>Войдите</Link>, чтобы иметь возможность комментировать.
         { variant === 'advanced' && (
           <button onClick={onClickCancel} className={cn('cancel')}>Отмена</button>
         )}

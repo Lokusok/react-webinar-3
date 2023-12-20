@@ -1,6 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
-import useSelector from '../hooks/use-selector';
 import useStore from '../hooks/use-store';
 import useInit from '../hooks/use-init';
 import Main from './main';
@@ -10,6 +8,7 @@ import Login from './login';
 import Profile from './profile';
 import Protected from '../containers/protected';
 import {useSelector as useSelectorRedux} from 'react-redux';
+import useTranslate from '../hooks/use-translate';
 
 /**
  * Приложение
@@ -23,17 +22,18 @@ function App() {
   })
 
   const activeModal = useSelectorRedux(state => state.modals.name);
+  const translate = useTranslate();
 
   return (
     <>
       <Routes>
-        <Route path={''} element={<Main/>}/>
-        <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={<Login/>}/>
-        <Route path={'/profile'} element={<Protected redirect='/login'><Profile/></Protected>}/>
+        <Route path={''} element={<Main translate={translate} />}/>
+        <Route path={'/articles/:id'} element={<Article translate={translate} />}/>
+        <Route path={'/login'} element={<Login translate={translate} />}/>
+        <Route path={'/profile'} element={<Protected redirect='/login'><Profile translate={translate} /></Protected>}/>
       </Routes>
 
-      {activeModal === 'basket' && <Basket/>}
+      {activeModal === 'basket' && <Basket t={t}/>}
     </>
   );
 }

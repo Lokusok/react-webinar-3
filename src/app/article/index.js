@@ -15,7 +15,7 @@ import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import Comments from '../../containers/comments';
 
-function Article() {
+function Article({ translate }) {
   const store = useStore();
 
   const dispatch = useDispatch();
@@ -33,26 +33,26 @@ function Article() {
     waiting: state.article.waiting,
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const {t} = useTranslate();
-
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   };
 
+  const {lang, setLang, t} = translate;
+
   return (
     <PageLayout>
-      <TopHead/>
+      <TopHead t={t} />
       <Head title={select.article.title}>
-        <LocaleSelect/>
+        <LocaleSelect lang={lang} setLang={setLang} t={t} />
       </Head>
-      <Navigation/>
+      <Navigation t={t}/>
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
 
       {
-        select.article?._id && <Comments articleId={select.article._id} />
+        select.article?._id && <Comments articleId={select.article._id} t={t} />
       }
     </PageLayout>
   );

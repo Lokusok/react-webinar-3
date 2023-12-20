@@ -15,7 +15,7 @@ function CommentsList(props) {
   return (
     <div className={cn()}>
       <div className={cn('header')}>
-        <h3 className={cn('title')}>Комментарии ({values.count})</h3>
+        <h3 className={cn('title')}>{props.title} ({values.count})</h3>
       </div>
 
       <ul className={cn('list')}>
@@ -47,6 +47,7 @@ function CommentsList(props) {
 }
 
 CommentsList.propTypes = {
+  title: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
   formPosition: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   setFormPosition: PropTypes.func,

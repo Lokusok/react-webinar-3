@@ -10,7 +10,7 @@ import ModalLayout from '../../components/modal-layout';
 import BasketTotal from '../../components/basket-total';
 import modalsActions from '../../store-redux/modals/actions';
 
-function Basket() {
+function Basket({ t }) {
 
   const store = useStore();
   const dispatch = useDispatch();
@@ -30,8 +30,6 @@ function Basket() {
       dispatch(modalsActions.close());
     }, [store]),
   }
-
-  const {t} = useTranslate();
 
   const renders = {
     itemBasket: useCallback((item) => (

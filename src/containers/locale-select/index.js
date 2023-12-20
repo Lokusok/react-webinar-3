@@ -1,13 +1,7 @@
-import {memo, useCallback, useMemo} from 'react';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
+import {memo, useMemo} from 'react';
 import Select from '../../components/select';
 
-function LocaleSelect() {
-
-  const {lang, setLang} = useTranslate();
-
+function LocaleSelect({ lang, setLang }) {
   const options = {
     lang: useMemo(() => ([
       {value: 'ru', title: 'Русский'},

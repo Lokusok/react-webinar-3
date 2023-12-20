@@ -1,6 +1,5 @@
 import {memo} from 'react';
 import useStore from '../../hooks/use-store';
-import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
 import Navigation from '../../containers/navigation';
 import PageLayout from '../../components/page-layout';
@@ -10,7 +9,7 @@ import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 
-function Main() {
+function Main({ translate }) {
 
   const store = useStore();
 
@@ -21,17 +20,17 @@ function Main() {
     ]);
   }, [], true);
 
-  const {t} = useTranslate();
+  const {lang, setLang, t} = translate;
 
   return (
     <PageLayout>
-      <TopHead/>
+      <TopHead t={t} />
       <Head title={t('title')}>
-        <LocaleSelect/>
+        <LocaleSelect lang={lang} setLang={setLang} t={t} />
       </Head>
-      <Navigation/>
-      <CatalogFilter/>
-      <CatalogList/>
+      <Navigation t={t}/>
+      <CatalogFilter t={t}/>
+      <CatalogList t={t}/>
     </PageLayout>
   );
 }

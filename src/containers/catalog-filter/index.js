@@ -8,7 +8,7 @@ import SideLayout from '../../components/side-layout';
 import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 
-function CatalogFilter() {
+function CatalogFilter({ t }) {
 
   const store = useStore();
 
@@ -49,8 +49,6 @@ function CatalogFilter() {
       ))
     ]), [select.categories]),
   };
-
-  const {t} = useTranslate();
 
   return (
     <SideLayout padding='medium'>

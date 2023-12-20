@@ -20,7 +20,6 @@ export default {
 
         const comments = res.data.result.items;
         dispatch({type: 'comments/load-success', payload: {list: comments}});
-        console.log('Запросил все комменты:', comments)
 
       } catch (e) {
         dispatch({type: 'comments/load-error'});
@@ -44,7 +43,7 @@ export default {
           method: 'POST',
           body: jsonStr,
         });
-        console.log('Отправил коммент:', res);
+
         // Обновление по добавлению коммента
         // dispatch(this.load(articleId, true));
         dispatch({type: 'comments/add-new', payload: { item: res.data.result }})

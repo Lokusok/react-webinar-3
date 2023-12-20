@@ -74,6 +74,7 @@ function Comments(props) {
   return (
     <Spinner disable={true} active={select.waiting}>
       <CommentsList
+        title={props.t('comments.title')}
         formPosition={formPosition}
         setFormPosition={setFormPosition}
         comments={options.comments}
@@ -93,6 +94,7 @@ function Comments(props) {
 
 Comments.propTypes = {
   articleId: PropTypes.string.isRequired,
+  t: PropTypes.func,
 };
 
 export default memo(Comments);

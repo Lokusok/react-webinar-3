@@ -8,7 +8,7 @@ import SideLayout from '../../components/side-layout';
 import {useDispatch} from 'react-redux';
 import modalsActions from '../../store-redux/modals/actions';
 
-function Navigation() {
+function Navigation({ t }) {
   const store = useStore();
   const dispatch = useDispatch();
 
@@ -29,9 +29,6 @@ function Navigation() {
       if (item.key === 1) store.actions.catalog.resetParams();
     }, [store])
   }
-
-  // Функция для локализации текстов
-  const {t} = useTranslate();
 
   const options = {
     menu: useMemo(() => ([

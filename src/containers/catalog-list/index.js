@@ -7,7 +7,7 @@ import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import Spinner from '../../components/spinner';
 
-function CatalogList() {
+function CatalogList({ t }) {
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -35,8 +35,6 @@ function CatalogList() {
       })}`;
     }, [select.limit, select.sort, select.query])
   }
-
-  const {t} = useTranslate();
 
   const renders = {
     item: useCallback(item => (
