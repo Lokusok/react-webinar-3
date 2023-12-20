@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 
 import Comment from '../comment';
-import CommentForm from '../comment-form';
-import CommentFormWarning from '../comment-form-warning';
 
 function CommentsList(props) {
   const cn = bem('CommentsList');
@@ -21,7 +19,6 @@ function CommentsList(props) {
       </div>
 
       <ul className={cn('list')}>
-        {/* {JSON.stringify(props.comments)} */}
         {props.comments.map((comment) => (
           <li key={comment._id}>
             <Comment
@@ -31,6 +28,10 @@ function CommentsList(props) {
               onNewComment={props.onCommentFormSubmit}
               isFormDisplayed={props.isFormDisplayed}
               warningCmp={props.warningCmpAdvanced}
+              commentForm={props.commentFormComment}
+              currentUsername={props.currentUsername}
+              maxCommentLevel={props.maxCommentLevel}
+              commentOffsetPer={props.commentOffsetPer}
             />
           </li>
         ))}
@@ -38,10 +39,7 @@ function CommentsList(props) {
 
       {!Boolean(props.formPosition) && (
         props.isFormDisplayed ? (
-          <CommentForm
-            onSubmit={props.onCommentFormSubmit}
-            title="Новый комментарий"
-          />
+          <>{props.commentFormFooter}</>
         ) : <>{props.warningCmp}</>
       )}
     </div>
@@ -56,12 +54,19 @@ CommentsList.propTypes = {
   isFormDisplayed: PropTypes.bool,
   warningCmp: PropTypes.node,
   warningCmpAdvanced: PropTypes.func,
+  commentFormFooter: PropTypes.node,
+  commentFormComment: PropTypes.func,
+  currentUsername: PropTypes.string,
+  maxCommentLevel: PropTypes.number,
+  commentOffsetPer: PropTypes.number,
 };
 
 CommentsList.defaultProps = {
   setFormPosition: () => {},
   onCommentFormSubmit: () => {},
   isFormDisplayed: true,
+  maxCommentLevel: 5,
+  commentOffsetPer: 30,
 };
 
 export default CommentsList;

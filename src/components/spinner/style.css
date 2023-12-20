@@ -1,3 +1,8 @@
 .Spinner {
   opacity: 0.5;
 }
+
+.Spinner_disable {
+  user-select: none;
+  pointer-events: none;
+}

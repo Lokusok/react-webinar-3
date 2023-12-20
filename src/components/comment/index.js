@@ -1,13 +1,10 @@
-import { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect, memo } from 'react';
 import './style.css';
 
 import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 
 import formatDate from '../../utils/format-date';
-
-import CommentForm from '../comment-form';
-import CommentFormWarning from '../comment-form-warning';
 
 function Comment({ comment, ...props }) {
   const cn = bem('Comment');
@@ -30,14 +27,21 @@ function Comment({ comment, ...props }) {
     },
   };
 
+  const options = {
+    commentOffset: Math.min(
+      comment.level * props.commentOffsetPer,
+      props.maxCommentLevel * props.commentOffsetPer
+    ),
+  }
+
   useLayoutEffect(() => {
     setFormDisplayed(props.formPosition === comment._id);
   }, [props.formPosition]);
 
   return (
-    <article style={{ paddingLeft: `${comment.level * 30}px` }} className={cn()}>
+    <article style={{ paddingLeft: `${options.commentOffset}px` }} className={cn()}>
       <header className={cn('header')}>
-        <h3 className={cn('title')}>{values.username}</h3>
+        <h3 className={cn('title', { current: values.username === props.currentUsername })}>{values.username}</h3>
         <span className={cn('date')}>{values.date}</span>
       </header>
 
@@ -54,13 +58,7 @@ function Comment({ comment, ...props }) {
           <div>
             {
               props.isFormDisplayed ? (
-                <CommentForm
-                  title="Новый ответ"
-                  onSubmit={props.onNewComment}
-                  onClickCancel={callbacks.clickCancel}
-                  cancelBtn={true}
-                  commentId={comment._id}
-                />
+                <>{props.commentForm(callbacks.clickCancel, comment._id)}</>
               ) : <>{props.warningCmp(callbacks.clickCancel)}</>
             }
           </div>
@@ -77,12 +75,15 @@ Comment.propTypes = {
   onNewComment: PropTypes.func,
   isFormDisplayed: PropTypes.bool,
   warningCmp: PropTypes.func,
+  commentForm: PropTypes.func,
+  currentUsername: PropTypes.string,
+  commentOffsetPer: PropTypes.number,
 };
 
 Comment.defaultProps = {
   setFormPosition: () => {},
   onNewComment: () => {},
-  isFormDisplayed: true
+  isFormDisplayed: true,
 };
 
-export default Comment;
+export default memo(Comment);

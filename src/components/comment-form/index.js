@@ -41,7 +41,7 @@ function CommentForm(props) {
         <div className={cn('buttons')}>
           <button className={cn('submit')} type="submit">Отправить</button>
           {
-            props.cancelBtn && (
+            props.variant === 'advanced' && (
               <button
                 onClick={props.onClickCancel}
                 className={cn('cancel')}
@@ -60,6 +60,7 @@ CommentForm.propTypes = {
   onClickCancel: PropTypes.func,
   onSubmit: PropTypes.func,
   commentId: PropTypes.string,
+  variant: PropTypes.string,
 };
 
 CommentForm.defaultProps = {

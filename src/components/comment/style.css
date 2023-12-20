@@ -16,6 +16,10 @@
   margin: 0;
 }
 
+.Comment-title_current {
+  color: #666;
+}
+
 .Comment-date {
   color: #666;
   font-size: 12px;
@@ -42,3 +46,4 @@
 .Comment-action:hover {
   text-decoration: underline;
 }
+

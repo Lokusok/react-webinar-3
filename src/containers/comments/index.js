@@ -1,38 +1,35 @@
-import { useState } from 'react';
+import { useState, memo, useEffect } from 'react';
+
+import { useDispatch as useDispatchRedux, useSelector as useSelectorRedux } from 'react-redux';
 
 import PropTypes from 'prop-types';
 import CommentsList from '../../components/comments-list';
-import { useDispatch as useDispatchRedux, useSelector as useSelectorRedux } from 'react-redux';
 
 import useSelector from '../../hooks/use-selector';
 import commentsActions from '../../store-redux/comments/actions';
 
-import useInit from '../../hooks/use-init';
+import CommentFormWarning from '../../components/comment-form-warning';
+import CommentForm from '../../components/comment-form';
+import Spinner from '../../components/spinner';
+
 import listToTree from '../../utils/list-to-tree';
 import treeToList from '../../utils/tree-to-list';
-import CommentFormWarning from '../../components/comment-form-warning';
 
 function Comments(props) {
   const dispatch = useDispatchRedux();
-  const isAuth = useSelector((state) => state.session.exists);
+  const defaultSelect = useSelector((state) => ({
+    isAuth: state.session.exists,
+    currentUsername: state.session.user.profile?.name,
+  }));
   const select = useSelectorRedux((state) => ({
     comments: state.comments.list,
     waiting: state.comments.waiting,
   }));
   const [formPosition, setFormPosition] = useState(false);
 
-  console.log('Comments List:', select.comments);
-
-  const helpers = {
-    manuallyUpdate: (articleId) => {
-      dispatch(commentsActions.load(articleId));
-    },
-  };
-
   const callbacks = {
     onCommentFormSubmit: (text, commentId) => {
       dispatch(commentsActions.addNew(text, props.articleId, commentId));
-      // helpers.manuallyUpdate(props.articleId);
     },
   };
 
@@ -40,7 +37,9 @@ function Comments(props) {
     comments: treeToList(listToTree(select.comments), (comment, level) => ({
       _id: comment._id, author: comment.author, text: comment.text, dateCreate: comment.dateCreate, level: level - 1
     })).slice(1),
-    warningUrl: '/login2',
+    warningUrl: '/login',
+    maxCommentLevel: 25,
+    commentOffsetPer: 30,
   };
 
   const renders = {
@@ -48,28 +47,47 @@ function Comments(props) {
     formWarningAdvanced: (callback) => (
       <CommentFormWarning
         loginUrl={options.warningUrl}
-        variant='advanced'
+        variant="advanced"
         onClickCancel={callback}
       />
-    )
+    ),
+    commentFormFooter: <CommentForm onSubmit={callbacks.onCommentFormSubmit} title="Новый комментарий" />,
+    commentFormComment: (onClickCancel, commentId) => (
+      <CommentForm
+        onSubmit={callbacks.onCommentFormSubmit}
+        title="Новый ответ"
+        variant="advanced"
+        onClickCancel={onClickCancel}
+        commentId={commentId}
+      />
+    ),
   };
 
-  useInit(() => {
-    helpers.manuallyUpdate(props.articleId);
+  useEffect(() => {
+    const controller = new AbortController();
+
+    dispatch(commentsActions.load(props.articleId, false, controller.signal));
+
+    return () => controller.abort();
   }, []);
 
-  console.log('Comments:', options.comments)
-
   return (
-    <CommentsList
-      formPosition={formPosition}
-      setFormPosition={setFormPosition}
-      comments={options.comments}
-      onCommentFormSubmit={callbacks.onCommentFormSubmit}
-      isFormDisplayed={isAuth}
-      warningCmp={renders.formWarning}
-      warningCmpAdvanced={renders.formWarningAdvanced}
-    />
+    <Spinner disable={true} active={select.waiting}>
+      <CommentsList
+        formPosition={formPosition}
+        setFormPosition={setFormPosition}
+        comments={options.comments}
+        onCommentFormSubmit={callbacks.onCommentFormSubmit}
+        isFormDisplayed={defaultSelect.isAuth}
+        warningCmp={renders.formWarning}
+        warningCmpAdvanced={renders.formWarningAdvanced}
+        commentFormFooter={renders.commentFormFooter}
+        commentFormComment={renders.commentFormComment}
+        currentUsername={defaultSelect.currentUsername}
+        maxCommentLevel={options.maxCommentLevel}
+        commentOffsetPer={options.commentOffsetPer}
+      />
+    </Spinner>
   );
 }
 
@@ -77,4 +95,4 @@ Comments.propTypes = {
   articleId: PropTypes.string.isRequired,
 };
 
-export default Comments;
+export default memo(Comments);
