@@ -8,10 +8,12 @@ import ModalLayout from '../../components/modal-layout';
 import BasketTotal from '../../components/basket-total';
 import modalsActions from '../../store-redux/modals/actions';
 
-function Basket({ t }) {
+function Basket({ translate }) {
 
   const store = useStore();
   const dispatch = useDispatch();
+
+  const {t} = translate;
 
   const select = useSelector(state => ({
     list: state.basket.list,

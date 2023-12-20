@@ -21,8 +21,6 @@ function Main({ translate }) {
     ]);
   }, [lang], true);
 
-
-
   return (
     <PageLayout>
       <TopHead t={t} />

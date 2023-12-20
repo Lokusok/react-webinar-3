@@ -15,11 +15,11 @@ import useTranslate from '../hooks/use-translate';
  * @returns {React.ReactElement}
  */
 function App() {
-
   const store = useStore();
+
   useInit(async () => {
     await store.actions.session.remind();
-  })
+  });
 
   const activeModal = useSelectorRedux(state => state.modals.name);
   const translate = useTranslate();
@@ -33,7 +33,7 @@ function App() {
         <Route path={'/profile'} element={<Protected redirect='/login'><Profile translate={translate} /></Protected>}/>
       </Routes>
 
-      {activeModal === 'basket' && <Basket t={t}/>}
+      {activeModal === 'basket' && <Basket translate={translate}/>}
     </>
   );
 }
