@@ -1,3 +1,10 @@
+/**
+ * Форматирование unix-метки в читабельный формат
+ * @param dateUnix {Number} Метка времени
+ * @param opts {Object} Объект настроек
+ * @param lang {String} Язык (ru/en)
+ * @returns {string} Читабельный формат
+*/
 function formatDate(dateUnix, opts, lang = 'ru') {
   const dateObj = new Date(dateUnix)
   const options = {
