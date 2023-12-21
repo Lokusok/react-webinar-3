@@ -21,5 +21,11 @@
   "auth.signIn": "Sign in",
   "session.signIn": "Sign In",
   "session.signOut": "Sign Out",
-  "comments.title": "Comments"
+  "comments.title": "Comments",
+  "comments.newAnswerTitle": "New answer",
+  "comments.newCommentTitle": "New comment",
+  "comments.warningLinkText": "Sign in",
+  "comments.warningOtherText": "to be able to comment.",
+  "comments.formSend": "Send",
+  "comments.formCancel": "Cancel"
 }

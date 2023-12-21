@@ -1,4 +1,4 @@
-function formatDate(dateUnix, opts) {
+function formatDate(dateUnix, opts, lang = 'ru') {
   const dateObj = new Date(dateUnix)
   const options = {
     day: "numeric",
@@ -8,7 +8,7 @@ function formatDate(dateUnix, opts) {
     minute: 'numeric',
     ...opts
   };
-  const res = dateObj.toLocaleString('ru', options).replace(/\s*г\./, "")
+  const res = dateObj.toLocaleString(lang, options).replace(/\s*г\./, "")
 
   return res;
 }

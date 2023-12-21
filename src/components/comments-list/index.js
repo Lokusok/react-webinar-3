@@ -24,6 +24,7 @@ function CommentsList(props) {
               currentUsername={props.currentUsername}
               maxCommentLevel={props.maxCommentLevel}
               commentOffsetPer={props.commentOffsetPer}
+              activeLang={props.activeLang}
             />
           </li>
         ))}
@@ -51,6 +52,7 @@ CommentsList.propTypes = {
   currentUsername: PropTypes.string,
   maxCommentLevel: PropTypes.number,
   commentOffsetPer: PropTypes.number,
+  activeLang: PropTypes.string,
 };
 
 CommentsList.defaultProps = {

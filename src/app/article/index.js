@@ -51,7 +51,9 @@ function Article({ translate }) {
       </Spinner>
 
       {
-        select.article?._id && <Comments articleId={select.article._id} t={t} />
+        select.article?._id && (
+          <Comments articleId={select.article._id} t={t} activeLang={lang} />
+        )
       }
     </PageLayout>
   );

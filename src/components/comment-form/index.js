@@ -39,13 +39,13 @@ function CommentForm(props) {
         ></textarea>
 
         <div className={cn('buttons')}>
-          <button className={cn('submit')} type="submit">Отправить</button>
+          <button className={cn('submit')} type="submit">{props.submitText}</button>
           {
             props.variant === 'advanced' && (
               <button
                 onClick={props.onClickCancel}
                 className={cn('cancel')}
-              >Отменить</button>
+              >{props.cancelText}</button>
             )
           }
         </div>
@@ -61,6 +61,8 @@ CommentForm.propTypes = {
   onSubmit: PropTypes.func,
   commentId: PropTypes.string,
   variant: PropTypes.string,
+  submitText: PropTypes.string,
+  cancelText: PropTypes.string,
 };
 
 CommentForm.defaultProps = {

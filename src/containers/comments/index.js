@@ -45,7 +45,13 @@ function Comments(props) {
   };
 
   const renders = {
-    formWarning: <CommentFormWarning loginUrl={options.warningUrl} />,
+    formWarning: (
+      <CommentFormWarning
+        linkText={props.t('comments.warningLinkText')}
+        otherText={props.t('comments.warningOtherText')}
+        loginUrl={options.warningUrl}
+      />
+    ),
     formWarningAdvanced: (callback) => (
       <CommentFormWarning
         loginUrl={options.warningUrl}
@@ -53,14 +59,23 @@ function Comments(props) {
         onClickCancel={callback}
       />
     ),
-    commentFormFooter: <CommentForm onSubmit={callbacks.onCommentFormSubmit} title="Новый комментарий" />,
+    commentFormFooter: (
+      <CommentForm
+        onSubmit={callbacks.onCommentFormSubmit}
+        title={props.t('comments.newCommentTitle')}
+        submitText={props.t('comments.formSend')}
+        cancelText={props.t('comments.formCancel')}
+      />
+    ),
     commentFormComment: (onClickCancel, commentId) => (
       <CommentForm
         onSubmit={callbacks.onCommentFormSubmit}
-        title="Новый ответ"
+        title={props.t('comments.newAnswerTitle')}
         variant="advanced"
         onClickCancel={onClickCancel}
         commentId={commentId}
+        submitText={props.t('comments.formSend')}
+        cancelText={props.t('comments.formCancel')}
       />
     ),
   };
@@ -95,6 +110,7 @@ function Comments(props) {
           currentUsername={defaultSelect.currentUsername}
           maxCommentLevel={options.maxCommentLevel}
           commentOffsetPer={options.commentOffsetPer}
+          activeLang={props.activeLang}
         />
       </CommentsLayout>
     </Spinner>
@@ -104,6 +120,7 @@ function Comments(props) {
 Comments.propTypes = {
   articleId: PropTypes.string.isRequired,
   t: PropTypes.func,
+  activeLang: PropTypes.string,
 };
 
 export default memo(Comments);

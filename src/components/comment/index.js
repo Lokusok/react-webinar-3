@@ -12,7 +12,7 @@ function Comment({ comment, ...props }) {
 
   const values = {
     username: comment.author.profile.name,
-    date: formatDate(comment.dateCreate),
+    date: formatDate(comment.dateCreate, {}, props.activeLang),
     text: comment.text,
   };
 
@@ -78,6 +78,7 @@ Comment.propTypes = {
   commentForm: PropTypes.func,
   currentUsername: PropTypes.string,
   commentOffsetPer: PropTypes.number,
+  activeLang: PropTypes.string
 };
 
 Comment.defaultProps = {
