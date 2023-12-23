@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect, memo } from 'react';
+import { memo } from 'react';
 import './style.css';
 
 import PropTypes from 'prop-types';
@@ -8,7 +8,6 @@ import formatDate from '../../utils/format-date';
 
 function Comment({ comment, ...props }) {
   const cn = bem('Comment');
-  const [formDisplayed, setFormDisplayed] = useState(false);
 
   const values = {
     username: comment.author.profile.name,
@@ -19,11 +18,9 @@ function Comment({ comment, ...props }) {
   const callbacks = {
     clickDisplay: () => {
       props.setFormPosition(comment._id);
-      setFormDisplayed(true);
     },
     clickCancel: () => {
       props.setFormPosition(false);
-      setFormDisplayed(false);
     },
   };
 
@@ -34,12 +31,8 @@ function Comment({ comment, ...props }) {
     ),
   }
 
-  useLayoutEffect(() => {
-    setFormDisplayed(props.formPosition === comment._id);
-  }, [props.formPosition]);
-
   return (
-    <article style={{ paddingLeft: `${options.commentOffset}px` }} className={cn()}>
+    <article style={{ paddingLeft: options.commentOffset }} className={cn()}>
       <header className={cn('header')}>
         <h3 className={cn('title', { current: values.username === props.currentUsername })}>{values.username}</h3>
         <span className={cn('date')}>{values.date}</span>
@@ -52,18 +45,6 @@ function Comment({ comment, ...props }) {
       <footer className={cn('footer')}>
         <button onClick={callbacks.clickDisplay} className={cn('action')}>Ответить</button>
       </footer>
-
-      {
-        formDisplayed && (
-          <div>
-            {
-              props.isFormDisplayed ? (
-                <>{props.commentForm(callbacks.clickCancel, comment._id)}</>
-              ) : <>{props.warningCmp(callbacks.clickCancel)}</>
-            }
-          </div>
-        )
-      }
     </article>
   );
 }
@@ -75,7 +56,6 @@ Comment.propTypes = {
   onNewComment: PropTypes.func,
   isFormDisplayed: PropTypes.bool,
   warningCmp: PropTypes.func,
-  commentForm: PropTypes.func,
   currentUsername: PropTypes.string,
   commentOffsetPer: PropTypes.number,
   activeLang: PropTypes.string

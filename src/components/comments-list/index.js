@@ -13,19 +13,21 @@ function CommentsList(props) {
       <ul className={cn('list')}>
         {props.comments.map((comment) => (
           <li key={comment._id}>
-            <Comment
-              formPosition={props.formPosition}
-              setFormPosition={props.setFormPosition}
-              comment={comment}
-              onNewComment={props.onCommentFormSubmit}
-              isFormDisplayed={props.isFormDisplayed}
-              warningCmp={props.warningCmpAdvanced}
-              commentForm={props.commentFormComment}
-              currentUsername={props.currentUsername}
-              maxCommentLevel={props.maxCommentLevel}
-              commentOffsetPer={props.commentOffsetPer}
-              activeLang={props.activeLang}
-            />
+            {
+              comment.type === 'component' ? comment.component : (
+                <Comment
+                  formPosition={props.formPosition}
+                  setFormPosition={props.setFormPosition}
+                  comment={comment}
+                  onNewComment={props.onCommentFormSubmit}
+                  isFormDisplayed={props.isFormDisplayed}
+                  currentUsername={props.currentUsername}
+                  maxCommentLevel={props.maxCommentLevel}
+                  commentOffsetPer={props.commentOffsetPer}
+                  activeLang={props.activeLang}
+                />
+              )
+            }
           </li>
         ))}
       </ul>
@@ -46,9 +48,7 @@ CommentsList.propTypes = {
   onCommentFormSubmit: PropTypes.func,
   isFormDisplayed: PropTypes.bool,
   warningCmp: PropTypes.node,
-  warningCmpAdvanced: PropTypes.func,
   commentFormFooter: PropTypes.node,
-  commentFormComment: PropTypes.func,
   currentUsername: PropTypes.string,
   maxCommentLevel: PropTypes.number,
   commentOffsetPer: PropTypes.number,

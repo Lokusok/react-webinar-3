@@ -14,6 +14,11 @@ function CommentForm(props) {
   const callbacks = {
     onSubmit: (e) => {
       e.preventDefault();
+
+      if (!data.text.trim().length) {
+        return;
+      }
+
       props.onSubmit(data.text, props.commentId);
       setData({ text: '' });
     },
@@ -52,7 +57,7 @@ function CommentForm(props) {
       </form>
     </div>
   );
-}
+};
 
 CommentForm.propTypes = {
   title: PropTypes.string,

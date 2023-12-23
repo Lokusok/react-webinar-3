@@ -29,6 +29,7 @@
 .Comment-text {
   margin: 0;
   font-size: 14px;
+  overflow-wrap: break-word;
 }
 
 .Comment-action {
