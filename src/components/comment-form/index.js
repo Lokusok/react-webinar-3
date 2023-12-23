@@ -19,7 +19,7 @@ function CommentForm(props) {
         return;
       }
 
-      props.onSubmit(data.text, props.commentId);
+      props.onSubmit(data.text);
       setData({ text: '' });
     },
 
@@ -48,6 +48,7 @@ function CommentForm(props) {
           {
             props.variant === 'advanced' && (
               <button
+                type="button"
                 onClick={props.onClickCancel}
                 className={cn('cancel')}
               >{props.cancelText}</button>
@@ -61,10 +62,8 @@ function CommentForm(props) {
 
 CommentForm.propTypes = {
   title: PropTypes.string,
-  cancelBtn: PropTypes.bool,
   onClickCancel: PropTypes.func,
   onSubmit: PropTypes.func,
-  commentId: PropTypes.string,
   variant: PropTypes.string,
   submitText: PropTypes.string,
   cancelText: PropTypes.string,

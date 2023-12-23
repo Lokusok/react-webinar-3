@@ -5,7 +5,7 @@ import useTranslate from '../../hooks/use-translate';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 
-function TopHead({ t }) {
+function TopHead() {
   const navigate = useNavigate();
   const location = useLocation();
   const store = useStore();
@@ -26,6 +26,8 @@ function TopHead({ t }) {
       store.actions.session.signOut();
     }, []),
   }
+
+  const {t} = useTranslate();
 
   return (
     <SideLayout side='end' padding='small'>

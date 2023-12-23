@@ -24,8 +24,10 @@
   "comments.title": "Comments",
   "comments.newAnswerTitle": "New answer",
   "comments.newCommentTitle": "New comment",
-  "comments.warningLinkText": "Sign in",
-  "comments.warningOtherText": "to be able to comment.",
+  "comments.warningLink": "Sign in",
+  "comments.warningOther": "to be able to comment.",
   "comments.formSend": "Send",
-  "comments.formCancel": "Cancel"
+  "comments.formCancel": "Cancel",
+  "comments.answer": "Answer",
+  "comments.warningCancel": "Cancel"
 }

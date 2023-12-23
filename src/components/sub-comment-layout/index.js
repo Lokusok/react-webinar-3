@@ -1,10 +1,10 @@
 import './style.css';
-import React, { useEffect, forwardRef } from "react";
+import React, { useLayoutEffect, forwardRef } from "react";
 
 import PropTypes from 'prop-types';
 
 const SubCommentLayout = forwardRef((props, ref) => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!ref || !props.scrollTo) return;
     ref.current.scrollIntoView({behavior: "smooth", block: "center", inline: "start"});
   }, []);

@@ -8,11 +8,20 @@ class I18nService {
    */
   constructor(services, config = {}) {
     this.services = services;
-    this.lang = config.defaultLang;
+    this.config = {
+      lang: config.defaultLang || 'ru',
+    };
+    this.listeners = new Set();
+
+    // т.к. отдаются во внешнее пользование - биндим контекст
+    this.getSnapshot = this.getSnapshot.bind(this);
+    this.subscribe = this.subscribe.bind(this);
+    this.setLang = this.setLang.bind(this);
+    this.translate = this.translate.bind(this);
   }
 
-  translate(lang, text, plural) {
-    let toLang = lang ? lang : this.lang;
+  translate = (text, plural) => {
+    let toLang = this.config.lang;
 
     let result = translations[toLang] && (text in translations[toLang])
       ? translations[toLang][text]
@@ -28,9 +37,27 @@ class I18nService {
     return result;
   }
 
-  setLang(newLang) {
-    this.lang = newLang;
+  setLang = (newLang) => {
+    this.config = {
+      ...this.config,
+      lang: newLang,
+    };
     this.services.api.setHeader('X-lang', newLang);
+    this.execListeners();
+  }
+
+  getSnapshot = () => {
+    return this.config;
+  }
+
+  subscribe = (listener) => {
+    this.listeners.add(listener);
+
+    return () => this.listeners.delete(listener);
+  }
+
+  execListeners() {
+    this.listeners.forEach((listener) => listener());
   }
 }
 

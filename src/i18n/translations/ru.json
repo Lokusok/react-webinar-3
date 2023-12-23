@@ -26,8 +26,10 @@
   "comments.title": "Комментарии",
   "comments.newAnswerTitle": "Новый ответ",
   "comments.newCommentTitle": "Новый комментарий",
-  "comments.warningLinkText": "Войдите",
-  "comments.warningOtherText": "чтобы иметь возможность комментировать.",
+  "comments.warningLink": "Войдите",
+  "comments.warningOther": "чтобы иметь возможность комментировать.",
   "comments.formSend": "Отправить",
-  "comments.formCancel": "Отменить"
+  "comments.formCancel": "Отменить",
+  "comments.answer": "Ответить",
+  "comments.warningCancel": "Отмена"
 }

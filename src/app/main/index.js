@@ -8,11 +8,12 @@ import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
+import useTranslate from '../../hooks/use-translate';
 
-function Main({ translate }) {
-
+function Main() {
   const store = useStore();
-  const {lang, setLang, t} = translate;
+
+  const {t, lang} = useTranslate();
 
   useInit(async () => {
     await Promise.all([
@@ -23,13 +24,13 @@ function Main({ translate }) {
 
   return (
     <PageLayout>
-      <TopHead t={t} />
+      <TopHead />
       <Head title={t('title')}>
-        <LocaleSelect lang={lang} setLang={setLang} t={t} />
+        <LocaleSelect />
       </Head>
-      <Navigation t={t}/>
-      <CatalogFilter t={t}/>
-      <CatalogList t={t}/>
+      <Navigation />
+      <CatalogFilter />
+      <CatalogList />
     </PageLayout>
   );
 }

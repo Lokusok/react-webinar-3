@@ -34,7 +34,7 @@ export default {
       try {
         const body = {
           text,
-          parent: { _id: commentId ?? articleId, _type: commentId ? 'comment' : 'article' }
+          parent: { _id: commentId || articleId, _type: commentId ? 'comment' : 'article' }
         };
         const jsonStr = JSON.stringify(body);
 

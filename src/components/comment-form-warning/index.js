@@ -14,7 +14,9 @@ function CommentFormWarning(props) {
         <Link to={props.loginUrl} state={{ back: window.location.pathname }}>{props.linkText}</Link>
         {props.otherText && <>, {props.otherText}</>}
         { props.variant === 'advanced' && (
-          <button onClick={props.onClickCancel} className={cn('cancel')}>Отмена</button>
+          <button onClick={props.onClickCancel} className={cn('cancel')}>
+            {props.cancelText}
+          </button>
         )}
       </p>
     </>
@@ -27,6 +29,7 @@ CommentFormWarning.propTypes = {
   onClickCancel: PropTypes.func,
   linkText: PropTypes.string,
   otherText: PropTypes.string,
+  cancelText: PropTypes.string,
 };
 
 export default CommentFormWarning;

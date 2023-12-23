@@ -6,19 +6,20 @@ import PropTypes from 'prop-types';
 import CommentsList from '../../components/comments-list';
 
 import useSelector from '../../hooks/use-selector';
+import useTranslate from '../../hooks/use-translate';
 import commentsActions from '../../store-redux/comments/actions';
 
 import CommentFormWarning from '../../components/comment-form-warning';
 import CommentForm from '../../components/comment-form';
 import Spinner from '../../components/spinner';
-
-import listToTree from '../../utils/list-to-tree';
-import treeToList from '../../utils/tree-to-list';
 import CommentsTitle from '../../components/comments-title';
 import CommentsLayout from '../../components/comments-layout';
 import SubCommentLayout from '../../components/sub-comment-layout';
 
-function Comments(props) {
+import listToTree from '../../utils/list-to-tree';
+import treeToList from '../../utils/tree-to-list';
+
+function Comments({ articleId }) {
   const dispatch = useDispatchRedux();
   const defaultSelect = useSelector((state) => ({
     isAuth: state.session.exists,
@@ -31,10 +32,11 @@ function Comments(props) {
   const [comments, setComments] = useState(select.comments);
   const [formPosition, setFormPosition] = useState(false);
   const formRef = useRef(null);
+  const {t, lang} = useTranslate();
 
   const callbacks = {
-    onCommentFormSubmit: (text, commentId) => {
-      dispatch(commentsActions.addNew(text, props.articleId, commentId));
+    onCommentFormSubmit: (text) => {
+      dispatch(commentsActions.addNew(text, articleId, formPosition));
       setFormPosition(false);
     },
     onCancelForm: () => {
@@ -46,45 +48,46 @@ function Comments(props) {
     warningUrl: '/login',
     maxCommentLevel: 25,
     commentOffsetPer: 30,
+    scrollToSubComm: false, // true для проскролла к комменту или предупреждению
   };
 
   const renders = {
     formWarning: (
       <CommentFormWarning
-        linkText={props.t('comments.warningLinkText')}
-        otherText={props.t('comments.warningOtherText')}
+        linkText={t('comments.warningLink')}
+        otherText={t('comments.warningOther')}
         loginUrl={options.warningUrl}
       />
     ),
     formWarningAdvanced: (level) => (
-      <SubCommentLayout ref={formRef} scrollTo={true} offsetX={level * options.commentOffsetPer}>
+      <SubCommentLayout ref={formRef} scrollTo={options.scrollToSubComm} offsetX={level * options.commentOffsetPer}>
         <CommentFormWarning
           loginUrl={options.warningUrl}
           variant="advanced"
           onClickCancel={callbacks.onCancelForm}
-          linkText={props.t('comments.warningLinkText')}
-          otherText={props.t('comments.warningOtherText')}
+          linkText={t('comments.warningLink')}
+          otherText={t('comments.warningOther')}
+          cancelText={t('comments.warningCancel')}
         />
       </SubCommentLayout>
     ),
     commentFormFooter: (
       <CommentForm
         onSubmit={callbacks.onCommentFormSubmit}
-        title={props.t('comments.newCommentTitle')}
-        submitText={props.t('comments.formSend')}
-        cancelText={props.t('comments.formCancel')}
+        title={t('comments.newCommentTitle')}
+        submitText={t('comments.formSend')}
+        cancelText={t('comments.formCancel')}
       />
     ),
     commentFormComment: (level) =>  (
-      <SubCommentLayout ref={formRef} scrollTo={true} offsetX={level * options.commentOffsetPer}>
+      <SubCommentLayout ref={formRef} scrollTo={options.scrollToSubComm} offsetX={level * options.commentOffsetPer}>
         <CommentForm
           onSubmit={callbacks.onCommentFormSubmit}
-          title={props.t('comments.newAnswerTitle')}
+          title={t('comments.newAnswerTitle')}
           variant="advanced"
           onClickCancel={callbacks.onCancelForm}
-          commentId={formPosition}
-          submitText={props.t('comments.formSend')}
-          cancelText={props.t('comments.formCancel')}
+          submitText={t('comments.formSend')}
+          cancelText={t('comments.formCancel')}
         />
       </SubCommentLayout>
     ),
@@ -117,7 +120,7 @@ function Comments(props) {
   useEffect(() => {
     const controller = new AbortController();
 
-    dispatch(commentsActions.load(props.articleId, false, controller.signal));
+    dispatch(commentsActions.load(articleId, false, controller.signal));
 
     return () => controller.abort();
   }, []);
@@ -141,7 +144,7 @@ function Comments(props) {
       <CommentsLayout
         title={(
           <CommentsTitle count={select.comments.length}>
-            {props.t('comments.title')}
+            {t('comments.title')}
           </CommentsTitle>
         )}>
 
@@ -156,7 +159,8 @@ function Comments(props) {
           currentUsername={defaultSelect.currentUsername}
           maxCommentLevel={options.maxCommentLevel}
           commentOffsetPer={options.commentOffsetPer}
-          activeLang={props.activeLang}
+          activeLang={lang}
+          t={t}
         />
       </CommentsLayout>
     </Spinner>
@@ -165,8 +169,6 @@ function Comments(props) {
 
 Comments.propTypes = {
   articleId: PropTypes.string.isRequired,
-  t: PropTypes.func,
-  activeLang: PropTypes.string,
 };
 
 export default memo(Comments);

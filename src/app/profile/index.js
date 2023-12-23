@@ -9,8 +9,9 @@ import Spinner from '../../components/spinner';
 import LocaleSelect from '../../containers/locale-select';
 import TopHead from '../../containers/top-head';
 import ProfileCard from '../../components/profile-card';
+import useTranslate from '../../hooks/use-translate';
 
-function Profile({ translate }) {
+function Profile() {
   const store = useStore();
 
   useInit(() => {
@@ -22,15 +23,15 @@ function Profile({ translate }) {
     waiting: state.profile.waiting,
   }));
 
-  const {lang, setLang, t} = translate;
+  const {t} = useTranslate();
 
   return (
     <PageLayout>
-      <TopHead t={t} />
+      <TopHead />
       <Head title={t('title')}>
-        <LocaleSelect lang={lang} setLang={setLang} t={t} />
+        <LocaleSelect />
       </Head>
-      <Navigation t={t}/>
+      <Navigation />
       <Spinner active={select.waiting}>
         <ProfileCard data={select.profile}/>
       </Spinner>

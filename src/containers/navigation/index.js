@@ -8,9 +8,10 @@ import SideLayout from '../../components/side-layout';
 import {useDispatch} from 'react-redux';
 import modalsActions from '../../store-redux/modals/actions';
 
-function Navigation({ t }) {
+function Navigation() {
   const store = useStore();
   const dispatch = useDispatch();
+  const {t, lang} = useTranslate();
 
   const select = useSelector(state => ({
     amount: state.basket.amount,

@@ -7,7 +7,7 @@ import List from '../../components/list';
 import Pagination from '../../components/pagination';
 import Spinner from '../../components/spinner';
 
-function CatalogList({ t }) {
+function CatalogList() {
   const store = useStore();
 
   const select = useSelector(state => ({
@@ -19,6 +19,8 @@ function CatalogList({ t }) {
     count: state.catalog.count,
     waiting: state.catalog.waiting,
   }));
+
+  const {t} = useTranslate();
 
   const callbacks = {
     // Добавление в корзину

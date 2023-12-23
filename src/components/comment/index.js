@@ -43,7 +43,9 @@ function Comment({ comment, ...props }) {
       </p>
 
       <footer className={cn('footer')}>
-        <button onClick={callbacks.clickDisplay} className={cn('action')}>Ответить</button>
+        <button onClick={callbacks.clickDisplay} className={cn('action')}>
+          {props.t('comments.answer')}
+        </button>
       </footer>
     </article>
   );
@@ -58,7 +60,8 @@ Comment.propTypes = {
   warningCmp: PropTypes.func,
   currentUsername: PropTypes.string,
   commentOffsetPer: PropTypes.number,
-  activeLang: PropTypes.string
+  activeLang: PropTypes.string,
+  t: PropTypes.func,
 };
 
 Comment.defaultProps = {

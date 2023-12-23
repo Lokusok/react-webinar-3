@@ -8,7 +8,7 @@ import SideLayout from '../../components/side-layout';
 import treeToList from '../../utils/tree-to-list';
 import listToTree from '../../utils/list-to-tree';
 
-function CatalogFilter({ t }) {
+function CatalogFilter() {
 
   const store = useStore();
 
@@ -18,6 +18,8 @@ function CatalogFilter({ t }) {
     category: state.catalog.params.category,
     categories: state.categories.list,
   }));
+
+  const {t, lang} = useTranslate();
 
   const callbacks = {
     // Сортировка

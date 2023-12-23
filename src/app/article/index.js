@@ -15,15 +15,14 @@ import shallowequal from 'shallowequal';
 import articleActions from '../../store-redux/article/actions';
 import Comments from '../../containers/comments';
 
-function Article({ translate }) {
+function Article() {
   const store = useStore();
 
   const dispatch = useDispatch();
+  const {t, lang} = useTranslate();
 
   // Параметры из пути /articles/:id
   const params = useParams();
-
-  const {lang, setLang, t} = translate;
 
   useInit(() => {
     dispatch(articleActions.load(params.id));
@@ -41,11 +40,11 @@ function Article({ translate }) {
 
   return (
     <PageLayout>
-      <TopHead t={t} />
+      <TopHead />
       <Head title={select.article.title}>
-        <LocaleSelect lang={lang} setLang={setLang} t={t} />
+        <LocaleSelect />
       </Head>
-      <Navigation t={t}/>
+      <Navigation />
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
