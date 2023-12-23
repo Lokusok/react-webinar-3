@@ -20,8 +20,8 @@ class I18nService {
     this.translate = this.translate.bind(this);
   }
 
-  translate = (text, plural) => {
-    let toLang = this.config.lang;
+  translate = (lang, text, plural) => {
+    let toLang = lang || this.config.lang;
 
     let result = translations[toLang] && (text in translations[toLang])
       ? translations[toLang][text]
@@ -38,9 +38,10 @@ class I18nService {
   }
 
   setLang = (newLang) => {
+    const toLang = newLang || this.config.lang;
     this.config = {
       ...this.config,
-      lang: newLang,
+      lang: toLang,
     };
     this.services.api.setHeader('X-lang', newLang);
     this.execListeners();

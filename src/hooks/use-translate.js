@@ -12,7 +12,9 @@ export default function useTranslate() {
   const resObj = {
     lang: state.lang,
     setLang: i18n.setLang,
-    t: i18n.translate,
+    t: (text, number, lang = state.lang) => {
+      return i18n.translate(lang, text, number);
+    },
   };
 
   return resObj;

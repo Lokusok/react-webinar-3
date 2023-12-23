@@ -49,6 +49,9 @@ function Comments({ articleId }) {
     maxCommentLevel: 25,
     commentOffsetPer: 30,
     scrollToSubComm: false, // true для проскролла к комменту или предупреждению
+    getMaxOffset() {
+      return this.maxCommentLevel * this.commentOffsetPer;
+    },
   };
 
   const renders = {
@@ -60,7 +63,11 @@ function Comments({ articleId }) {
       />
     ),
     formWarningAdvanced: (level) => (
-      <SubCommentLayout ref={formRef} scrollTo={options.scrollToSubComm} offsetX={level * options.commentOffsetPer}>
+      <SubCommentLayout
+        ref={formRef}
+        scrollTo={options.scrollToSubComm}
+        offsetX={Math.min(level * options.commentOffsetPer, options.getMaxOffset())}
+      >
         <CommentFormWarning
           loginUrl={options.warningUrl}
           variant="advanced"
@@ -80,7 +87,11 @@ function Comments({ articleId }) {
       />
     ),
     commentFormComment: (level) =>  (
-      <SubCommentLayout ref={formRef} scrollTo={options.scrollToSubComm} offsetX={level * options.commentOffsetPer}>
+      <SubCommentLayout
+        ref={formRef}
+        scrollTo={options.scrollToSubComm}
+        offsetX={Math.min(level * options.commentOffsetPer, options.getMaxOffset())}
+      >
         <CommentForm
           onSubmit={callbacks.onCommentFormSubmit}
           title={t('comments.newAnswerTitle')}
