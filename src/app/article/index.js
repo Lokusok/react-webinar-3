@@ -51,7 +51,7 @@ function Article() {
 
       {
         select.article?._id && (
-          <Comments articleId={select.article._id} t={t} activeLang={lang} />
+          <Comments articleId={select.article._id} />
         )
       }
     </PageLayout>
