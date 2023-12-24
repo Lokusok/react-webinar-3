@@ -48,7 +48,7 @@ function Comments({ articleId }) {
     warningUrl: '/login',
     maxCommentLevel: 20,
     commentOffsetPer: 30,
-    scrollToSubComm: false, // true для проскролла к комменту или предупреждению
+    scrollToSubComm: true, // true для проскролла к комменту или предупреждению
     getMaxOffset() {
       return this.maxCommentLevel * this.commentOffsetPer;
     },
