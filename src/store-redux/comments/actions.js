@@ -20,7 +20,6 @@ export default {
 
         const comments = res.data.result.items;
         dispatch({type: 'comments/load-success', payload: {list: comments}});
-
       } catch (e) {
         dispatch({type: 'comments/load-error'});
       }
