@@ -46,11 +46,14 @@ function Comments({ articleId }) {
 
   const options = {
     warningUrl: '/login',
-    maxCommentLevel: 25,
+    maxCommentLevel: 20,
     commentOffsetPer: 30,
     scrollToSubComm: false, // true для проскролла к комменту или предупреждению
     getMaxOffset() {
       return this.maxCommentLevel * this.commentOffsetPer;
+    },
+    getOffset(level) {
+      return Math.min(level * this.commentOffsetPer, this.getMaxOffset());
     },
   };
 
@@ -66,7 +69,7 @@ function Comments({ articleId }) {
       <SubCommentLayout
         ref={formRef}
         scrollTo={options.scrollToSubComm}
-        offsetX={Math.min(level * options.commentOffsetPer, options.getMaxOffset())}
+        offsetX={options.getOffset(level)}
       >
         <CommentFormWarning
           loginUrl={options.warningUrl}
@@ -90,7 +93,7 @@ function Comments({ articleId }) {
       <SubCommentLayout
         ref={formRef}
         scrollTo={options.scrollToSubComm}
-        offsetX={Math.min(level * options.commentOffsetPer, options.getMaxOffset())}
+        offsetX={options.getOffset(level)}
       >
         <CommentForm
           onSubmit={callbacks.onCommentFormSubmit}

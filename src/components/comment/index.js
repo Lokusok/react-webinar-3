@@ -29,7 +29,7 @@ function Comment({ comment, ...props }) {
       comment.level * props.commentOffsetPer,
       props.maxCommentLevel * props.commentOffsetPer
     ),
-  }
+  };
 
   return (
     <article style={{ paddingLeft: options.commentOffset }} className={cn()}>
